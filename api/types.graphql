@@ -1,0 +1,127 @@
+##################################################################################################
+# TODO: create DateTime scalar (currently String formatted as "YYYY-MM-DDTHH:mm:ssZ")
+# TODO: create notion of history && add it to everything
+##################################################################################################
+
+interface Object {
+  id:        ID!
+  active:    Boolean!
+  createdAt: String!
+  updatedAt: String!
+}
+
+interface Endorser {
+  name:             String!
+  articlesEndorsed: [Article!]!
+  requestsEndorsed: [Request!]!
+}
+
+interface Commentable {
+  author:   User!
+  comments: [Comment!]!
+}
+
+# TODO: can GraphQL do algebraic interfaces yet?
+interface Endorseable {
+  author:            User!
+  userEndorsements:  [User!]!
+  groupEndorsements: [Group!]!
+}
+
+# TODO: add bookmarks
+# TODO: add following
+# TODO: add alerts
+# TODO: add news
+type User implements Object, Endorser {
+  id:               ID!
+  active:           Boolean!
+  createdAt:        String! @fake(type: pastDate, options: { dateFormat: "YYYY-MM-DDTHH:mm:ssZ" })
+  updatedAt:        String! @fake(type: pastDate, options: { dateFormat: "YYYY-MM-DDTHH:mm:ssZ" })
+  name:             String! @fake(type: firstName)
+  email:            String! @fake(type: email)
+  location:         String! @fake(type: city)
+  imageUrl:         String! @fake(type: imageUrl, options: { randomizeImageUrl: true, imageCategory: people })
+  addressBook:      [User!]!
+  groups:           [Group!]!
+  comments:         [Comment!]!
+  articles:         [Article!]!
+  articlesEndorsed: [Article!]!
+  requestsMade:     [Request!]!
+  requestsPledged:  [Request!]!
+  requestsEndorsed: [Request!]!
+}
+
+# TODO: add requestsFilled
+type Group implements Object, Endorser {
+  id:               ID!
+  active:           Boolean!
+  createdAt:        String! @fake(type: pastDate, options: { dateFormat: "YYYY-MM-DDTHH:mm:ssZ" })
+  updatedAt:        String! @fake(type: pastDate, options: { dateFormat: "YYYY-MM-DDTHH:mm:ssZ" })
+  name:             String! @fake(type: companyName)
+  description:      String! @fake(type: lorem, options: { loremSize: paragraph })
+  imageUrl:         String! @fake(type: imageUrl, options: { randomizeImageUrl: true, imageCategory: abstract })
+  articles:         [Article!]!
+  articlesEndorsed: [Article!]!
+  members:          [User!]!
+  formerMembers:    [User!]!
+  requestsMade:     [Request!]!
+  requestsEndorsed: [Request!]!
+}
+
+# TODO: can GraphQL do recursion yet?
+type Comment implements Object, Commentable {
+  id:        ID!
+  active:    Boolean!
+  createdAt: String! @fake(type: pastDate, options: { dateFormat: "YYYY-MM-DDTHH:mm:ssZ" })
+  updatedAt: String! @fake(type: pastDate, options: { dateFormat: "YYYY-MM-DDTHH:mm:ssZ" })
+  content:   String! @fake(type: lorem, options: { loremSize: paragraph })
+  author:    User!
+  parent:    Commentable!
+  comments:  [Comment!]!
+}
+
+type Request implements Object, Commentable, Endorseable {
+  id:                ID!
+  active:            Boolean!
+  createdAt:         String! @fake(type: pastDate, options: { dateFormat: "YYYY-MM-DDTHH:mm:ssZ" })
+  updatedAt:         String! @fake(type: pastDate, options: { dateFormat: "YYYY-MM-DDTHH:mm:ssZ" })
+  title:             String! @fake(type: lorem, options: { loremSize: sentence })
+  content:           String! @fake(type: lorem, options: { loremSize: paragraph })
+  author:            User!
+  comments:          [Comment!]!
+  pledged:           [User!]!
+  userEndorsements:  [User!]!
+  groupEndorsements: [Group!]!
+}
+
+type Article implements Object, Commentable, Endorseable {
+  id:                ID!
+  active:            Boolean!
+  createdAt:         String! @fake(type: pastDate, options: { dateFormat: "YYYY-MM-DDTHH:mm:ssZ" })
+  updatedAt:         String! @fake(type: pastDate, options: { dateFormat: "YYYY-MM-DDTHH:mm:ssZ" })
+  title:             String! @fake(type: lorem, options: { loremSize: words })
+  abstract:          String! @fake(type: lorem, options: { loremSize: sentences })
+  content:           String! @fake(type: lorem, options: { loremSize: paragraphs })
+  author:            User!
+  authors:           [User!]!
+  comments:          [Comment!]!
+  userEndorsements:  [User!]!
+  groupEndorsements: [Group!]!
+}
+
+type Query {
+  allUsers:     [User!]!
+  user(id: ID): User
+
+  allGroups:     [Group!]!
+  group(id: ID): Group
+
+  allComments:     [Comment!]!
+  comment(id: ID): Comment
+
+  allRequests:     [Request!]!
+  request(id: ID): Request
+
+  allArticles:     [Article!]!
+  article(id: ID): Article
+}
