@@ -12,19 +12,19 @@ class UserListPage extends React.Component {
       return <Loading/>
     }
 
+    const {allUsers} = this.props.AllUsers
+
     return (
       <div className={'w-100 flex justify-center pa6'}>
         <div className='w-100 flex flex-wrap' style={{maxWidth: 1150}}>
-          {this.props.AllUsers.allUsers &&
-            this.props.AllUsers.allUsers.map(user => (
+          {allUsers && allUsers.map(user => (
             <User
               key={user.id}
               user={user}
-              refresh={() => this.props.AllUsers.refetch()}
+              refresh={() => allUsers.refetch()}
             />
           ))}
         </div>
-        {this.props.children}
       </div>
     )
   }

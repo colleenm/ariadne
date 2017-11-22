@@ -18,11 +18,11 @@ const detailModalStyle = {
 class UserDetailPage extends React.Component {
 
   render() {
-    if (this.props.userQuery.loading) {
+    if (this.props.User.loading) {
       return <Loading/>
     }
 
-    const {user} = this.props.userQuery
+    const {user} = this.props.User
 
     return (
       <Modal
@@ -62,7 +62,7 @@ class UserDetailPage extends React.Component {
   }
 }
 
-const UserQuery = gql`
+const User = gql`
   query user($id: ID!) {
     user(id: $id) {
       id
@@ -72,8 +72,8 @@ const UserQuery = gql`
     }
   }
 `
-const UserDetailPageWithGraphQL = graphql(UserQuery, {
-  name: 'userQuery',
+const UserDetailPageWithGraphQL = graphql(User, {
+  name: 'User',
   options: ({match}) => ({
     variables: {
       id: match.params.id,
