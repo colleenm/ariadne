@@ -25,6 +25,7 @@ Open questions:
 - persistence
 - permissions
 - integrations with external services
+- testing
 - deployment
 
 ## web/
@@ -32,6 +33,7 @@ Open questions:
 
 No framework has been chosen for the front end, however the following libraries are currently being used:
 - [React][react] is the de facto standard for modern web development. Additionally, [React Native][react-native] can be used to build native applications.
+- [React Router][react-router] is a collection of navigational components for React.
 - [Apollo Client][apollo-client] is a powerful set of tools for connecting applications (both web and native) to GraphQL APIs.
 - [Tachyons][tachyons] is a responsive CSS framework designed to preserve sanity.
 
@@ -40,6 +42,7 @@ Open questions:
 - optimistic UI
 - progressive enhancement
 - server-side rendering
+- testing
 - deployment
 
 
@@ -76,6 +79,7 @@ yarn start
 [neo4j]:            https://neo4j.com
 [create-react-app]: https://github.com/facebookincubator/create-react-app
 [react]:            https://github.com/facebook/react
+[react-router]:     https://github.com/ReactTraining/react-router
 [react-native]:     https://facebook.github.io/react-native/
 [apollo-client]:    https://github.com/apollographql/apollo-client
 [tachyons]:         https://github.com/tachyons-css/tachyons
