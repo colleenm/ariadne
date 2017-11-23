@@ -15,7 +15,8 @@ interface Agency {
 }
 
 interface Authorable {
-  authors: [User!]!
+  authoringUsers:  [User!]!
+  authoringGroups: [Group!]!
 }
 
 interface Commentable {
@@ -88,34 +89,36 @@ type Comment implements Entity, Commentable, Endorseable, Watchable {
 
 # TODO: create requestStatus
 type Request implements Entity, Authorable, Commentable, Endorseable, Watchable {
-  id:           ID!
-  expunged:     Boolean!
-  createdAt:    String! @fake(type: pastDate, options: { dateFormat: "YYYY-MM-DDTHH:mm:ssZ" })
-  updatedAt:    String! @fake(type: pastDate, options: { dateFormat: "YYYY-MM-DDTHH:mm:ssZ" })
-  title:        String! @fake(type: lorem, options: { loremSize: sentence })
-  content:      String! @fake(type: lorem, options: { loremSize: paragraph })
-  poster:       User!
-  pledged:      [User!]!
-  authors:      [User!]!
-  comments:     [Comment!]!
-  endorsements: [User!]!
-  watchers:     [User!]!
+  id:              ID!
+  expunged:        Boolean!
+  createdAt:       String! @fake(type: pastDate, options: { dateFormat: "YYYY-MM-DDTHH:mm:ssZ" })
+  updatedAt:       String! @fake(type: pastDate, options: { dateFormat: "YYYY-MM-DDTHH:mm:ssZ" })
+  title:           String! @fake(type: lorem, options: { loremSize: sentence })
+  content:         String! @fake(type: lorem, options: { loremSize: paragraph })
+  poster:          User!
+  pledged:         [User!]!
+  authoringUsers:  [User!]!
+  authoringGroups: [Group!]!
+  comments:        [Comment!]!
+  endorsements:    [User!]!
+  watchers:        [User!]!
 }
 
 # TODO: add relatedArticles
 type Article implements Entity, Authorable, Commentable, Endorseable, Watchable {
-  id:           ID!
-  expunged:     Boolean!
-  createdAt:    String! @fake(type: pastDate, options: { dateFormat: "YYYY-MM-DDTHH:mm:ssZ" })
-  updatedAt:    String! @fake(type: pastDate, options: { dateFormat: "YYYY-MM-DDTHH:mm:ssZ" })
-  title:        String! @fake(type: lorem, options: { loremSize: words })
-  abstract:     String! @fake(type: lorem, options: { loremSize: sentences })
-  content:      String! @fake(type: lorem, options: { loremSize: paragraphs })
-  poster:       User!
-  authors:      [User!]!
-  comments:     [Comment!]!
-  endorsements: [User!]!
-  watchers:     [User!]!
+  id:              ID!
+  expunged:        Boolean!
+  createdAt:       String! @fake(type: pastDate, options: { dateFormat: "YYYY-MM-DDTHH:mm:ssZ" })
+  updatedAt:       String! @fake(type: pastDate, options: { dateFormat: "YYYY-MM-DDTHH:mm:ssZ" })
+  title:           String! @fake(type: lorem, options: { loremSize: words })
+  abstract:        String! @fake(type: lorem, options: { loremSize: sentences })
+  content:         String! @fake(type: lorem, options: { loremSize: paragraphs })
+  poster:          User!
+  authoringUsers:  [User!]!
+  authoringGroups: [Group!]!
+  comments:        [Comment!]!
+  endorsements:    [User!]!
+  watchers:        [User!]!
 }
 
 type Query {
