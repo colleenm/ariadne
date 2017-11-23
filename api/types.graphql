@@ -3,40 +3,45 @@
 # TODO: create notion of history && add it to everything
 ##################################################################################################
 
-interface Object {
+interface Entity {
   id:        ID!
-  active:    Boolean!
+  expunged:  Boolean!
   createdAt: String!
   updatedAt: String!
 }
 
-interface Endorser {
-  name:             String!
-  articlesEndorsed: [Article!]!
-  requestsEndorsed: [Request!]!
+interface Agency {
+  active: Boolean!
+}
+
+interface Authorable {
+  authors: [User!]!
 }
 
 interface Commentable {
-  author:   User!
   comments: [Comment!]!
 }
 
-# TODO: can GraphQL do algebraic interfaces yet?
+# TODO: create Endorsement object
 interface Endorseable {
-  author:            User!
-  userEndorsements:  [User!]!
-  groupEndorsements: [Group!]!
+  endorsements: [User!]!
+}
+
+interface Watchable {
+  watchers: [User!]!
 }
 
 # TODO: add bookmarks
 # TODO: add following
 # TODO: add alerts
 # TODO: add news
-type User implements Object, Endorser {
+# TODO: add formerGroups
+type User implements Entity, Agency {
   id:               ID!
-  active:           Boolean!
+  expunged:         Boolean!
   createdAt:        String! @fake(type: pastDate, options: { dateFormat: "YYYY-MM-DDTHH:mm:ssZ" })
   updatedAt:        String! @fake(type: pastDate, options: { dateFormat: "YYYY-MM-DDTHH:mm:ssZ" })
+  active:           Boolean!
   name:             String! @fake(type: firstName)
   email:            String! @fake(type: email)
   location:         String! @fake(type: city)
@@ -52,68 +57,72 @@ type User implements Object, Endorser {
 }
 
 # TODO: add requestsFilled
-type Group implements Object, Endorser {
-  id:               ID!
-  active:           Boolean!
-  createdAt:        String! @fake(type: pastDate, options: { dateFormat: "YYYY-MM-DDTHH:mm:ssZ" })
-  updatedAt:        String! @fake(type: pastDate, options: { dateFormat: "YYYY-MM-DDTHH:mm:ssZ" })
-  name:             String! @fake(type: companyName)
-  description:      String! @fake(type: lorem, options: { loremSize: paragraph })
-  imageUrl:         String! @fake(type: imageUrl, options: { randomizeImageUrl: true, imageCategory: abstract })
-  articles:         [Article!]!
-  articlesEndorsed: [Article!]!
-  members:          [User!]!
-  formerMembers:    [User!]!
-  requestsMade:     [Request!]!
-  requestsEndorsed: [Request!]!
+# TODO: add requestsMade
+type Group implements Entity, Agency {
+  id:            ID!
+  expunged:      Boolean!
+  createdAt:     String! @fake(type: pastDate, options: { dateFormat: "YYYY-MM-DDTHH:mm:ssZ" })
+  updatedAt:     String! @fake(type: pastDate, options: { dateFormat: "YYYY-MM-DDTHH:mm:ssZ" })
+  active:        Boolean!
+  name:          String! @fake(type: companyName)
+  description:   String! @fake(type: lorem, options: { loremSize: paragraph })
+  imageUrl:      String! @fake(type: imageUrl, options: { randomizeImageUrl: true, imageCategory: abstract })
+  articles:      [Article!]!
+  members:       [User!]!
+  formerMembers: [User!]!
 }
 
 # TODO: can GraphQL do recursion yet?
-type Comment implements Object, Commentable {
-  id:        ID!
-  active:    Boolean!
-  createdAt: String! @fake(type: pastDate, options: { dateFormat: "YYYY-MM-DDTHH:mm:ssZ" })
-  updatedAt: String! @fake(type: pastDate, options: { dateFormat: "YYYY-MM-DDTHH:mm:ssZ" })
-  content:   String! @fake(type: lorem, options: { loremSize: paragraph })
-  author:    User!
-  parent:    Commentable!
-  comments:  [Comment!]!
+type Comment implements Entity, Commentable, Endorseable, Watchable {
+  id:            ID!
+  expunged:      Boolean!
+  createdAt:     String! @fake(type: pastDate, options: { dateFormat: "YYYY-MM-DDTHH:mm:ssZ" })
+  updatedAt:     String! @fake(type: pastDate, options: { dateFormat: "YYYY-MM-DDTHH:mm:ssZ" })
+  content:       String! @fake(type: lorem, options: { loremSize: paragraph })
+  poster:        User!
+  parent:        Commentable!
+  comments:      [Comment!]!
+  endoresements: [User!]!
+  watchers:      [User!]!
 }
 
-type Request implements Object, Commentable, Endorseable {
-  id:                ID!
-  active:            Boolean!
-  createdAt:         String! @fake(type: pastDate, options: { dateFormat: "YYYY-MM-DDTHH:mm:ssZ" })
-  updatedAt:         String! @fake(type: pastDate, options: { dateFormat: "YYYY-MM-DDTHH:mm:ssZ" })
-  title:             String! @fake(type: lorem, options: { loremSize: sentence })
-  content:           String! @fake(type: lorem, options: { loremSize: paragraph })
-  author:            User!
-  comments:          [Comment!]!
-  pledged:           [User!]!
-  userEndorsements:  [User!]!
-  groupEndorsements: [Group!]!
+# TODO: create requestStatus
+type Request implements Entity, Authorable, Commentable, Endorseable, Watchable {
+  id:           ID!
+  expunged:     Boolean!
+  createdAt:    String! @fake(type: pastDate, options: { dateFormat: "YYYY-MM-DDTHH:mm:ssZ" })
+  updatedAt:    String! @fake(type: pastDate, options: { dateFormat: "YYYY-MM-DDTHH:mm:ssZ" })
+  title:        String! @fake(type: lorem, options: { loremSize: sentence })
+  content:      String! @fake(type: lorem, options: { loremSize: paragraph })
+  poster:       User!
+  pledged:      [User!]!
+  authors:      [User!]!
+  comments:     [Comment!]!
+  endorsements: [User!]!
+  watchers:     [User!]!
 }
 
-type Article implements Object, Commentable, Endorseable {
-  id:                ID!
-  active:            Boolean!
-  createdAt:         String! @fake(type: pastDate, options: { dateFormat: "YYYY-MM-DDTHH:mm:ssZ" })
-  updatedAt:         String! @fake(type: pastDate, options: { dateFormat: "YYYY-MM-DDTHH:mm:ssZ" })
-  title:             String! @fake(type: lorem, options: { loremSize: words })
-  abstract:          String! @fake(type: lorem, options: { loremSize: sentences })
-  content:           String! @fake(type: lorem, options: { loremSize: paragraphs })
-  author:            User!
-  authors:           [User!]!
-  comments:          [Comment!]!
-  userEndorsements:  [User!]!
-  groupEndorsements: [Group!]!
+# TODO: add relatedArticles
+type Article implements Entity, Authorable, Commentable, Endorseable, Watchable {
+  id:           ID!
+  expunged:     Boolean!
+  createdAt:    String! @fake(type: pastDate, options: { dateFormat: "YYYY-MM-DDTHH:mm:ssZ" })
+  updatedAt:    String! @fake(type: pastDate, options: { dateFormat: "YYYY-MM-DDTHH:mm:ssZ" })
+  title:        String! @fake(type: lorem, options: { loremSize: words })
+  abstract:     String! @fake(type: lorem, options: { loremSize: sentences })
+  content:      String! @fake(type: lorem, options: { loremSize: paragraphs })
+  poster:       User!
+  authors:      [User!]!
+  comments:     [Comment!]!
+  endorsements: [User!]!
+  watchers:     [User!]!
 }
 
 type Query {
   allUsers:     [User!]!
   user(id: ID): User
 
-  allGroups:     [Group!]!
+
   group(id: ID): Group
 
   allComments:     [Comment!]!
