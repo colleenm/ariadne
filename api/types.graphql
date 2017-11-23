@@ -82,7 +82,7 @@ type Comment implements Entity, Commentable, Endorseable, Watchable {
   poster:        User!
   parent:        Commentable!
   comments:      [Comment!]!
-  endoresements: [User!]!
+  endorsements:  [User!]!
   watchers:      [User!]!
 }
 
@@ -122,7 +122,7 @@ type Query {
   allUsers:     [User!]!
   user(id: ID): User
 
-
+  allGroups:     [Group!]!
   group(id: ID): Group
 
   allComments:     [Comment!]!
