@@ -1,5 +1,10 @@
 {
   "extends": "react-app",
+  "plugins": [
+    "flowtype",
+    "import",
+    "react"
+  ],
   "rules": {
     "semi": ["error", "never"],
     "quotes": ["error", "single", { "allowTemplateLiterals": true }],
