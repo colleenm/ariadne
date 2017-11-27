@@ -15,7 +15,7 @@ class ArticlePage extends React.Component {
 
     const {article} = this.props.Article
 
-    let abstract;
+    let abstract
     if (article.abstract) {
       abstract = <div>
                    <div>Abstract</div>
@@ -35,7 +35,7 @@ class ArticlePage extends React.Component {
               articleId={article.id}
             />
           </div>
-          <div className="ba"> {/* Article Body */}
+          <div className='ba'> {/* Article Body */}
             {abstract}
             <div>{article.content}</div>
           </div>

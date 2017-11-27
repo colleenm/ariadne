@@ -41,7 +41,7 @@ class MetadataPanel extends React.Component {
   formatDateSection = function(entity) {
     let createdDateEl = (
       <div>Posted {this.formatDate(new Date(entity.createdAt))}</div>)
-    let lastEditDateEl = null;
+    let lastEditDateEl = null
     // TODO use this block to check for an edit history once we add edit
     // history to the schema
     if (true) {
@@ -85,7 +85,7 @@ class MetadataPanel extends React.Component {
         <div>{entity.authoringGroups
           .map((group, i, a) => (
             <div key={group.id}>
-              <a href={'#' + group.id} className="b">
+              <a href={'#' + group.id} className='b'>
                 {group.name}
               </a>
               <div>
@@ -102,7 +102,7 @@ class MetadataPanel extends React.Component {
           ))
         } </div>)
     }
-    return null;
+    return null
   }
 
   // Given an entity with authoring users, returns JSX for a list of those
