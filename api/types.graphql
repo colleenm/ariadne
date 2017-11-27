@@ -117,7 +117,6 @@ type Article implements Entity, Authorable, Commentable, Endorseable, Watchable 
   authoringUsers:  [User!]!
   authoringGroups: [Group!]!
   comments:        [Comment!]!
-  related:         [Article!]!
   endorsements:    [User!]!
   watchers:        [User!]!
 }
