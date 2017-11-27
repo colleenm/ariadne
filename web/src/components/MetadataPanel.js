@@ -13,13 +13,13 @@ class MetadataPanel extends React.Component {
 
     // Replace 'article' with 'entity' below when we stop using graphql-faker
     const entity = this.props.MetadataEntity.article
-    
+
     let dates = this.formatDateSection(entity)
     let authoringGroups = this.formatAuthoringGroups(entity)
     let authoringUsers = this.formatAuthoringUsers(entity)
     let endorsements = this.formatEndorsements(entity)
     let comments = this.formatComments(entity)
- 
+
     return (
       <div className='ba w5'> {/* TODO replace 'w5' with a flex-basis class */}
         {/* For article pages */}
@@ -42,7 +42,7 @@ class MetadataPanel extends React.Component {
     let createdDateEl = (
       <div>Posted {this.formatDate(new Date(entity.createdAt))}</div>)
     let lastEditDateEl = null;
-    // TODO use this block to check for an edit history once we add edit 
+    // TODO use this block to check for an edit history once we add edit
     // history to the schema
     if (true) {
       // TODO lastEditDateString should be the date of the most recent edit,
@@ -66,7 +66,6 @@ class MetadataPanel extends React.Component {
       day: 'numeric',
       month: 'long',
       year: 'numeric',
-      
     }
     let timeOptions = {
       timeZone: 'America/Los_Angeles',
@@ -76,7 +75,7 @@ class MetadataPanel extends React.Component {
     return date.toLocaleDateString('en-GB', dateOptions) + ', ' + (
       date.toLocaleTimeString('en-US', timeOptions))
   }
-  
+
 
   // Given an entity with authoring groups, returns JSX for a list of groups'
   // names and member users
