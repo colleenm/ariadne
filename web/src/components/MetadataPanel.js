@@ -1,14 +1,23 @@
 import React     from 'react'
+import {graphql}     from 'react-apollo'
+import gql           from 'graphql-tag'
+
+import Loading       from './Loading'
 
 class MetadataPanel extends React.Component {
 
   render() {
+    if (this.props.MetadataArticle.loading) {
+      return <Loading />
+    }
 
+    const {article} = this.props.MetadataArticle
+    
     return (
       <div className='ba'>
         {/* For articles */}
         <div>
-          {this.props.authoringGroups
+          {article.authoringGroups
               .map((group, i, a) => (
                 <a href={'#' + group.id} key={group.id}>{group.name}</a>
               ))
@@ -16,7 +25,7 @@ class MetadataPanel extends React.Component {
           }
         </div>
         <div>
-          {this.props.authoringUsers
+          {article.authoringUsers
               .map((user) => (
                 <a href={'#' + user.id} key={user.id}>{user.name}</a>
               ))
@@ -30,4 +39,55 @@ class MetadataPanel extends React.Component {
   }
 }
 
-export default MetadataPanel
+const MetadataArticle = gql`
+  query article($id: ID!) {
+    article(id: $id) {
+      id
+      expunged
+      createdAt
+      authoringUsers {
+        id
+        expunged
+        active
+        name
+      }
+      authoringGroups {
+        id
+        expunged
+        active
+        name
+      }
+      comments {
+        id
+      }
+      endorsements {
+        id
+      }
+      watchers {
+        id
+      }
+    }
+  }
+`
+
+//const Entity = gql`
+//  query entity($id: ID!) {
+//    entity(id: $id) {
+//      ... on Article {
+//        id
+//      }
+//    }
+//  }
+//`
+
+const MetadataPanelWithGraphQL =  graphql(MetadataArticle, {
+  name: 'MetadataArticle',
+  options: (articleId) => ({
+    variables: {
+      id: articleId,
+    },
+  }),
+})(MetadataPanel)
+
+export default MetadataPanelWithGraphQL
+

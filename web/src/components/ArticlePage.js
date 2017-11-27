@@ -24,11 +24,7 @@ class ArticlePage extends React.Component {
         <div className='flex'>
           <div> {/* Side Content */}
             <MetadataPanel
-              authoringUsers={article.authoringUsers}
-              authoringGroups={article.authoringGroups}
-              articleHistory={article.history}
-              endorsements={article.endorsements}
-              comments={article.comments}
+              articleId={article.id}
             />
             <div>
               Related articles go here
