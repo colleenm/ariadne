@@ -104,7 +104,6 @@ type Request implements Entity, Authorable, Commentable, Endorseable, Watchable 
   watchers:        [User!]!
 }
 
-# TODO: add relatedArticles
 type Article implements Entity, Authorable, Commentable, Endorseable, Watchable {
   id:              ID!
   expunged:        Boolean!
@@ -119,6 +118,17 @@ type Article implements Entity, Authorable, Commentable, Endorseable, Watchable 
   comments:        [Comment!]!
   endorsements:    [User!]!
   watchers:        [User!]!
+  relatedArticles: [ArticleRecommendation!]!
+}
+
+type ArticleRecommendation implements Entity, Endorseable {
+  id:           ID!
+  expunged:     Boolean!
+  createdAt:    String! @fake(type: pastDate, options: { dateFormat: "YYYY-MM-DDTHH:mm:ssZ" })
+  updatedAt:    String! @fake(type: pastDate, options: { dateFormat: "YYYY-MM-DDTHH:mm:ssZ" })
+  poster:       User!
+  article:      Article!
+  endorsements: [User!]!
 }
 
 type Query {
