@@ -1,4 +1,4 @@
-import React     from 'react'
+import React         from 'react'
 import {graphql}     from 'react-apollo'
 import gql           from 'graphql-tag'
 
@@ -106,7 +106,7 @@ class MetadataPanel extends React.Component {
   }
 
   // Given an entity with authoring users, returns JSX for a list of those
-  // users, prepended with "With" if the entity also has authoring groups
+  // users, prefaced with "With" if the entity also has authoring groups
   formatAuthoringUsers = function(entity) {
     if (entity.authoringUsers) {
       return (
