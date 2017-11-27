@@ -1,4 +1,4 @@
-import React        from 'react'
+import React       from 'react'
 import {BarLoader} from 'react-spinners'
 
 export default class Loading extends React.Component {
