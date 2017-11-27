@@ -14,7 +14,16 @@ class ArticlePage extends React.Component {
     }
 
     const {article} = this.props.Article
-    
+    console.log({article})    
+
+    let abstract;
+    if (article.abstract) {
+      abstract = <div>
+                   <div>Abstract</div>
+                   <div>{article.abstract}</div>
+                 </div>
+    }
+
     return (
       <div> {/* Article Page */}
         <div>{article.title}</div>
@@ -26,12 +35,10 @@ class ArticlePage extends React.Component {
             <MetadataPanel
               articleId={article.id}
             />
-            <div>
-              Related articles go here
-            </div>
           </div>
-          <div> {/* Article Body */}
-            {article.content}
+          <div className="ba"> {/* Article Body */}
+            {abstract}
+            <div>{article.content}</div>
           </div>
         </div>
       </div>
@@ -44,23 +51,9 @@ const Article = gql`
     article(id: $id) {
       id
       expunged
-      createdAt
-      updatedAt
       title
       abstract
       content
-      authoringUsers {
-        id
-        expunged
-        active
-        name
-      }
-      authoringGroups {
-        id
-        expunged
-        active
-        name
-      }
       comments {
         id
         expunged
@@ -77,10 +70,6 @@ const Article = gql`
           id
           name
         }
-      }
-      endorsements {
-        id
-        name
       }
     }
   }

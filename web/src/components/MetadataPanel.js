@@ -12,10 +12,10 @@ class MetadataPanel extends React.Component {
     }
 
     const {article} = this.props.MetadataArticle
-    
+
     return (
       <div className='ba'>
-        {/* For articles */}
+        {/* For article pages */}
         <div>
           {article.authoringGroups
               .map((group, i, a) => (
@@ -33,9 +33,19 @@ class MetadataPanel extends React.Component {
           }
         </div>
         <div>[TODO(cmck) logic to get post date from history]</div>
+
+        <div>
+          <div>
+            {article.endorsements.length}&nbsp;
+            {article.endorsements.length == 1 ? 'endorsement' : 'endorsements'}
+          </div>
+          <div>
+            {article.comments.length}&nbsp;
+            {article.comments.length == 1 ? 'comment' : 'comments'}
+          </div>
+        </div>
       </div>
     )
-
   }
 }
 
