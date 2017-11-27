@@ -21,7 +21,7 @@ class MetadataPanel extends React.Component {
     let comments = this.formatComments(entity)
  
     return (
-      <div className='ba'>
+      <div className='ba w5'> {/* TODO replace 'w5' with a flex-basis class */}
         {/* For article pages */}
         <div>{authoringGroups}</div>
         <div>{authoringUsers}</div>
@@ -36,6 +36,8 @@ class MetadataPanel extends React.Component {
 
 
   // TODO this only works for articles now, expand to cover other entities
+  // Returns JSX displaying relevant date information (creation, editing,
+  // completion) for the given entity.
   formatDateSection = function(entity) {
     let createdDateEl = (
       <div>Posted {this.formatDate(new Date(entity.createdAt))}</div>)
@@ -56,6 +58,9 @@ class MetadataPanel extends React.Component {
     )
   }
 
+
+  // Given a Date object, returns a human-readable version that looks like:
+  // 27 November 2017, 3:45 PM
   formatDate = function(date) {
     let dateOptions = {
       day: 'numeric',
@@ -72,6 +77,9 @@ class MetadataPanel extends React.Component {
       date.toLocaleTimeString('en-US', timeOptions))
   }
   
+
+  // Given an entity with authoring groups, returns JSX for a list of groups'
+  // names and member users
   formatAuthoringGroups = function(entity) {
     if (entity.authoringGroups) {
       return (
@@ -84,7 +92,9 @@ class MetadataPanel extends React.Component {
               <div>
                 {group.members
                     .map((user) => (
-                      <a href={'#' + user.id} key={user.id}>{user.name}</a>
+                      <a href={'#' + user.id} key={user.id} className='i'>
+                        {user.name}
+                      </a>
                     ))
                     .reduce((prev, curr) => [prev, ', ', curr])
                 }
@@ -96,6 +106,8 @@ class MetadataPanel extends React.Component {
     return null;
   }
 
+  // Given an entity with authoring users, returns JSX for a list of those
+  // users, prepended with "With" if the entity also has authoring groups
   formatAuthoringUsers = function(entity) {
     if (entity.authoringUsers) {
       return (
@@ -109,6 +121,8 @@ class MetadataPanel extends React.Component {
     }
   }
 
+  // Given an entity with endorsements, returns JSX for a labeled count of its
+  // endorsements
   formatEndorsements = function(entity) {
     if (entity.endorsements) {
       return (
@@ -120,6 +134,8 @@ class MetadataPanel extends React.Component {
     return null
   }
 
+  // Given an entity with comments, returns JSX for a labeled count of its
+  // comments
   formatComments= function(entity) {
     if (entity && entity.comments) {
       return (
