@@ -132,6 +132,8 @@ type ArticleRecommendation implements Entity, Endorseable {
 }
 
 type Query {
+  entity(id: ID): Entity
+
   allUsers:     [User!]!
   user(id: ID): User
 
