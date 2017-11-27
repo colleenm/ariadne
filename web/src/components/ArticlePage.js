@@ -14,7 +14,6 @@ class ArticlePage extends React.Component {
     }
 
     const {article} = this.props.Article
-    console.log({article})    
 
     let abstract;
     if (article.abstract) {
