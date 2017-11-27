@@ -104,7 +104,7 @@ type Request implements Entity, Authorable, Commentable, Endorseable, Watchable 
   watchers:        [User!]!
 }
 
-# TODO: add relatedArticles
+# TODO: add endorsements to related articles?
 type Article implements Entity, Authorable, Commentable, Endorseable, Watchable {
   id:              ID!
   expunged:        Boolean!
@@ -117,7 +117,7 @@ type Article implements Entity, Authorable, Commentable, Endorseable, Watchable 
   authoringUsers:  [User!]!
   authoringGroups: [Group!]!
   comments:        [Comment!]!
-  related:         [Article!]!
+  relatedArticles: [Article!]!
   endorsements:    [User!]!
   watchers:        [User!]!
 }
