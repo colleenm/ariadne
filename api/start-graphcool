@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+cd "${0%/*}"
+
+gc=./node_modules/.bin/graphcool
+
+$gc local up
+$gc deploy

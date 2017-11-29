@@ -1,149 +1,107 @@
-##################################################################################################
-# TODO: create DateTime scalar (currently String formatted as "YYYY-MM-DDTHH:mm:ssZ")
-# TODO: create notion of history && add it to everything
-##################################################################################################
+type User @model {
+    id                     : ID!            @isUnique
+    createdAt              : DateTime!
+    updatedAt              : DateTime!
 
-interface Entity {
-  id:        ID!
-  expunged:  Boolean!
-  createdAt: String!
-  updatedAt: String!
+    expunged               : Boolean!       @defaultValue(value : false)
+    active                 : Boolean!       @defaultValue(value : true)
+    name                   : String!        @isUnique
+    email                  : String!        @isUnique
+    bio                    : String!        @defaultValue(value : "")
+    password               : String!
+    location               : String!        @defaultValue(value : "unknown")
+    imageUrl               : String!        @defaultValue(value : "")
+
+    contacts               : [User!]!       @relation(name      : "UserContacts")
+    contactOf              : [User!]!       @relation(name      : "UserContacts")
+    groups                 : [Group!]!      @relation(name      : "UserGroups")
+    formerGroups           : [Group!]!      @relation(name      : "UserFormerGroups")
+    commentsPosted         : [Comment!]!    @relation(name      : "UserCommentsPosted")
+    authorships            : [Authorship!]! @relation(name      : "UserAuthorships")
+    requestsMade           : [Request!]!    @relation(name      : "UserRequestsMade")
+    requestsPledged        : [Request!]!    @relation(name      : "UserRequestsPledged")
+    requestsFilled         : [Request!]!    @relation(name      : "UserRequestsFilled")
+
+    # watching
+    groupsWatched          : [Group!]!      @relation(name      : "UserGroupsWatched")
+    commentsWatched        : [Comment!]!    @relation(name      : "UserCommentsWatched")
+    requestsWatched        : [Request!]!    @relation(name      : "UserRequestsWatched")
+    articlesWatched        : [Article!]!    @relation(name      : "UserArticlesWatched")
+
+
+    articlesEndorsed       : [Article!]!    @relation(name      : "UserArticlesEndorsed")
+    requestsEndorsed       : [Request!]!    @relation(name      : "UserRequestsEndorsed")
+    commentsEndorsed       : [Comment!]!    @relation(name      : "UserCommentsEndorsed")
 }
 
-interface Agency {
-  active: Boolean!
+type Group @model {
+    id            : ID!            @isUnique
+    createdAt     : DateTime!
+    updatedAt     : DateTime!
+    expunged      : Boolean!       @defaultValue(value : false)
+    active        : Boolean!       @defaultValue(value : true)
+    name          : String!        @isUnique
+    description   : String!
+    imageURL      : String!
+    authorships   : [Authorship!]! @relation(name      : "GroupAuthorships")
+    # requests    : [Request!]!    @relation(name      : "GroupRequestsAuthored")
+    members       : [User!]!       @relation(name      : "UserGroups")
+    formerMembers : [User!]!       @relation(name      : "UserFormerGroups")
+
+    watchers      : [User!]!       @relation(name      : "UserGroupsWatched")
 }
 
-interface Authorable {
-  authoringUsers:  [User!]!
-  authoringGroups: [Group!]!
+type Article @model {
+    id           : ID!            @isUnique
+    createdAt    : DateTime!
+    updatedAt    : DateTime!
+
+    expunged     : Boolean!       @defaultValue(value : false)
+    title        : String!
+    abstract     : String!
+    content      : String!
+
+    authorships  : [Authorship!]! @relation(name      : "AuthorshipArticle")
+    watchers     : [User!]!       @relation(name      : "UserArticlesWatched")
+    comments     : [Comment!]!    @relation(name      : "ArticleComments")
+    endorsements : [User!]!       @relation(name      : "UserArticlesEndorsed")
 }
 
-interface Commentable {
-  comments: [Comment!]!
+type Authorship @model {
+    id        : ID!       @isUnique
+    createdAt : DateTime!
+    updatedAt : DateTime!
+    users     : [User!]!  @relation(name : "UserAuthorships")
+    group     : Group!    @relation(name : "GroupAuthorships")
+    article   : Article!  @relation(name : "AuthorshipArticle")
 }
 
-# TODO: create Endorsement object
-interface Endorseable {
-  endorsements: [User!]!
+type Request @model {
+    id           : ID!         @isUnique
+    createdAt    : DateTime!
+    updatedAt    : DateTime!
+    expunged     : Boolean!    @defaultValue(value : false)
+    title        : String!
+    body         : String!
+    pledges      : [User!]!    @relation(name      : "UserRequestsPledged")
+    authors      : [User!]!    @relation(name      : "UserRequestsMade")
+    comments     : [Comment!]! @relation(name      : "RequestComments")
+    fillers      : [User!]!    @relation(name      : "UserRequestsFilled")
+    endorsements : [User!]!    @relation(name      : "UserRequestsEndorsed")
+    watchers     : [User!]!    @relation(name      : "UserRequestsWatched")
 }
 
-interface Watchable {
-  watchers: [User!]!
-}
-
-# TODO: add bookmarks
-# TODO: add following
-# TODO: add alerts
-# TODO: add news
-# TODO: add formerGroups
-type User implements Entity, Agency {
-  id:               ID!
-  expunged:         Boolean!
-  createdAt:        String! @fake(type: pastDate, options: { dateFormat: "YYYY-MM-DDTHH:mm:ssZ" })
-  updatedAt:        String! @fake(type: pastDate, options: { dateFormat: "YYYY-MM-DDTHH:mm:ssZ" })
-  active:           Boolean!
-  name:             String! @fake(type: firstName)
-  email:            String! @fake(type: email)
-  location:         String! @fake(type: city)
-  imageUrl:         String! @fake(type: imageUrl, options: { randomizeImageUrl: true, imageCategory: people })
-  addressBook:      [User!]!
-  groups:           [Group!]!
-  comments:         [Comment!]!
-  articles:         [Article!]!
-  articlesEndorsed: [Article!]!
-  requestsMade:     [Request!]!
-  requestsPledged:  [Request!]!
-  requestsEndorsed: [Request!]!
-}
-
-# TODO: add requestsFilled
-# TODO: add requestsMade
-type Group implements Entity, Agency {
-  id:            ID!
-  expunged:      Boolean!
-  createdAt:     String! @fake(type: pastDate, options: { dateFormat: "YYYY-MM-DDTHH:mm:ssZ" })
-  updatedAt:     String! @fake(type: pastDate, options: { dateFormat: "YYYY-MM-DDTHH:mm:ssZ" })
-  active:        Boolean!
-  name:          String! @fake(type: companyName)
-  description:   String! @fake(type: lorem, options: { loremSize: paragraph })
-  imageUrl:      String! @fake(type: imageUrl, options: { randomizeImageUrl: true, imageCategory: abstract })
-  articles:      [Article!]!
-  members:       [User!]!
-  formerMembers: [User!]!
-}
-
-# TODO: can GraphQL do recursion yet?
-type Comment implements Entity, Commentable, Endorseable, Watchable {
-  id:            ID!
-  expunged:      Boolean!
-  createdAt:     String! @fake(type: pastDate, options: { dateFormat: "YYYY-MM-DDTHH:mm:ssZ" })
-  updatedAt:     String! @fake(type: pastDate, options: { dateFormat: "YYYY-MM-DDTHH:mm:ssZ" })
-  content:       String! @fake(type: lorem, options: { loremSize: paragraph })
-  poster:        User!
-  parent:        Commentable!
-  comments:      [Comment!]!
-  endorsements:  [User!]!
-  watchers:      [User!]!
-}
-
-# TODO: create requestStatus
-type Request implements Entity, Authorable, Commentable, Endorseable, Watchable {
-  id:              ID!
-  expunged:        Boolean!
-  createdAt:       String! @fake(type: pastDate, options: { dateFormat: "YYYY-MM-DDTHH:mm:ssZ" })
-  updatedAt:       String! @fake(type: pastDate, options: { dateFormat: "YYYY-MM-DDTHH:mm:ssZ" })
-  title:           String! @fake(type: lorem, options: { loremSize: sentence })
-  content:         String! @fake(type: lorem, options: { loremSize: paragraph })
-  poster:          User!
-  pledged:         [User!]!
-  authoringUsers:  [User!]!
-  authoringGroups: [Group!]!
-  comments:        [Comment!]!
-  endorsements:    [User!]!
-  watchers:        [User!]!
-}
-
-type Article implements Entity, Authorable, Commentable, Endorseable, Watchable {
-  id:              ID! @examples(values: [345])
-  expunged:        Boolean!
-  createdAt:       String! @fake(type: pastDate, options: { dateFormat: "YYYY-MM-DDTHH:mm:ssZ" })
-  updatedAt:       String! @fake(type: pastDate, options: { dateFormat: "YYYY-MM-DDTHH:mm:ssZ" })
-  title:           String! @fake(type: lorem, options: { loremSize: words })
-  abstract:        String! @fake(type: lorem, options: { loremSize: sentences })
-  content:         String! @fake(type: lorem, options: { loremSize: paragraphs })
-  poster:          User!
-  authoringUsers:  [User!]!
-  authoringGroups: [Group!]!
-  comments:        [Comment!]!
-  endorsements:    [User!]!
-  watchers:        [User!]!
-  relatedArticles: [ArticleRecommendation!]!
-}
-
-type ArticleRecommendation implements Entity, Endorseable {
-  id:           ID!
-  expunged:     Boolean!
-  createdAt:    String! @fake(type: pastDate, options: { dateFormat: "YYYY-MM-DDTHH:mm:ssZ" })
-  updatedAt:    String! @fake(type: pastDate, options: { dateFormat: "YYYY-MM-DDTHH:mm:ssZ" })
-  poster:       User!
-  article:      Article!
-  endorsements: [User!]!
-}
-
-type Query {
-  allUsers:     [User!]!
-  user(id: ID): User
-
-  allGroups:     [Group!]!
-  group(id: ID): Group
-
-  allComments:     [Comment!]!
-  comment(id: ID): Comment
-
-  allRequests:     [Request!]!
-  request(id: ID): Request
-
-  allArticles:     [Article!]!
-  article(id: ID): Article
+type Comment @model {
+    id            : ID!         @isUnique
+    createdAt     : DateTime!
+    updatedAt     : DateTime!
+    expunged      : Boolean!    @defaultValue(value : false)
+    poster        : User!       @relation(name      : "UserCommentsPosted")
+    parentArticle : Article     @relation(name      : "ArticleComments")
+    parentRequest : Request     @relation(name      : "RequestComments")
+    parentComment : Comment     @relation(name      : "CommentComments")
+    comments      : [Comment!]! @relation(name      : "CommentComments")
+    body          : String!
+    endorsements  : [User!]!    @relation(name      : "UserCommentsEndorsed")
+    watchers      : [User!]!    @relation(name      : "UserCommentsWatched")
 }
