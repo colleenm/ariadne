@@ -14,11 +14,11 @@ class MetadataPanel extends React.Component {
     // Replace 'article' with 'entity' below when we stop using graphql-faker
     const entity = this.props.MetadataEntity.article
 
-    let dates = this.formatDateSection(entity)
-    let authoringGroups = this.formatAuthoringGroups(entity)
-    let authoringUsers = this.formatAuthoringUsers(entity)
-    let endorsements = this.formatEndorsements(entity)
-    let comments = this.formatComments(entity)
+    const dates = this.formatDateSection(entity)
+    const authoringGroups = this.formatAuthoringGroups(entity)
+    const authoringUsers = this.formatAuthoringUsers(entity)
+    const endorsements = this.formatEndorsements(entity)
+    const comments = this.formatComments(entity)
 
     return (
       <div className='ba w5'> {/* TODO replace 'w5' with a flex-basis class */}
@@ -39,7 +39,7 @@ class MetadataPanel extends React.Component {
   // Returns JSX displaying relevant date information (creation, editing,
   // completion) for the given entity.
   formatDateSection = function(entity) {
-    let createdDateEl = (
+    const createdDateEl = (
       <div>Posted {this.formatDate(new Date(entity.createdAt))}</div>)
     let lastEditDateEl = null
     // TODO use this block to check for an edit history once we add edit
@@ -62,12 +62,12 @@ class MetadataPanel extends React.Component {
   // Given a Date object, returns a human-readable version that looks like:
   // 27 November 2017, 3:45 PM
   formatDate = function(date) {
-    let dateOptions = {
+    const dateOptions = {
       day: 'numeric',
       month: 'long',
       year: 'numeric',
     }
-    let timeOptions = {
+    const timeOptions = {
       timeZone: 'America/Los_Angeles',
       hour: 'numeric',
       minute: '2-digit'

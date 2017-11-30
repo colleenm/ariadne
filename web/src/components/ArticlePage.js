@@ -15,14 +15,6 @@ class ArticlePage extends React.Component {
 
     const {article} = this.props.Article
 
-    let abstract
-    if (article.abstract) {
-      abstract = <div>
-                   <div>Abstract</div>
-                   <div>{article.abstract}</div>
-                 </div>
-    }
-
     return (
       <div> {/* Article Page */}
         <div>{article.title}</div>
@@ -36,7 +28,7 @@ class ArticlePage extends React.Component {
             />
           </div>
           <div className='ba'> {/* Article Body */}
-            {abstract}
+            <div>{abstract}</div>
             <div>{article.content}</div>
           </div>
         </div>
