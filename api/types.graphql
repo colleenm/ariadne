@@ -105,7 +105,7 @@ type Request implements Entity, Authorable, Commentable, Endorseable, Watchable 
 }
 
 type Article implements Entity, Authorable, Commentable, Endorseable, Watchable {
-  id:              ID!
+  id:              ID! @examples(values: [345])
   expunged:        Boolean!
   createdAt:       String! @fake(type: pastDate, options: { dateFormat: "YYYY-MM-DDTHH:mm:ssZ" })
   updatedAt:       String! @fake(type: pastDate, options: { dateFormat: "YYYY-MM-DDTHH:mm:ssZ" })

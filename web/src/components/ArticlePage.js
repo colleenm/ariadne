@@ -1,20 +1,21 @@
-import React         from 'react'
-import {graphql}     from 'react-apollo'
-import {withRouter}  from 'react-router-dom'
-import gql           from 'graphql-tag'
+import React                from 'react'
+import {graphql}            from 'react-apollo'
+import {withRouter}         from 'react-router-dom'
+import gql                  from 'graphql-tag'
 
-import Loading       from './Loading'
-import MetadataPanel from './MetadataPanel'
+import Loading              from './Loading'
+import MetadataPanel        from './MetadataPanel'
+import RelatedArticlesPanel from './RelatedArticlesPanel'
 
 class ArticlePage extends React.Component {
 
   render() {
-    if (this.props.Article.loading) {
+    if (this.props.ArticlePageArticle.loading) {
       return <Loading />
     }
 
-    const {article} = this.props.Article
-    
+    const {article} = this.props.ArticlePageArticle
+
     return (
       <div> {/* Article Page */}
         <div>{article.title}</div>
@@ -24,18 +25,15 @@ class ArticlePage extends React.Component {
         <div className='flex'>
           <div> {/* Side Content */}
             <MetadataPanel
-              authoringUsers={article.authoringUsers}
-              authoringGroups={article.authoringGroups}
-              articleHistory={article.history}
-              endorsements={article.endorsements}
-              comments={article.comments}
+              articleId={article.id}
             />
-            <div>
-              Related articles go here
-            </div>
+            <RelatedArticlesPanel
+              articleId={article.id}
+            />
           </div>
-          <div> {/* Article Body */}
-            {article.content}
+          <div className='ba'> {/* Article Body */}
+            <div>{abstract}</div>
+            <div>{article.content}</div>
           </div>
         </div>
       </div>
@@ -43,55 +41,20 @@ class ArticlePage extends React.Component {
   }
 }
 
-const Article = gql`
-  query article($id: ID!) {
+const ArticlePageArticle = gql`
+  query ArticlePageArticle($id: ID!) {
     article(id: $id) {
       id
       expunged
-      createdAt
-      updatedAt
       title
       abstract
       content
-      authoringUsers {
-        id
-        expunged
-        active
-        name
-      }
-      authoringGroups {
-        id
-        expunged
-        active
-        name
-      }
-      comments {
-        id
-        expunged
-        createdAt
-        updatedAt
-        content
-        poster {
-          id
-          expunged
-          active
-          name
-        }
-        endorsements {
-          id
-          name
-        }
-      }
-      endorsements {
-        id
-        name
-      }
     }
   }
 `
 
-const ArticlePageWithGraphQL = graphql(Article, {
-  name: 'Article',
+const ArticlePageWithGraphQL = graphql(ArticlePageArticle, {
+  name: 'ArticlePageArticle',
   options: ({match}) => ({
     variables: {
       id: match.params.id,
