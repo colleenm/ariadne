@@ -1,6 +1,7 @@
 import React         from 'react'
 import {graphql}     from 'react-apollo'
 import gql           from 'graphql-tag'
+import {utils}       from '../utils'
 
 import Loading       from './Loading'
 
@@ -17,8 +18,8 @@ class MetadataPanel extends React.Component {
     const dates = this.formatDateSection(entity)
     const authoringGroups = this.formatAuthoringGroups(entity)
     const authoringUsers = this.formatAuthoringUsers(entity)
-    const endorsements = this.formatEndorsements(entity)
-    const comments = this.formatComments(entity)
+    const endorsements = utils.formatEndorsementCount(entity.endorsements)
+    const comments = utils.formatCommentCount(entity.comments)
 
     return (
       <div className='ba w5'> {/* TODO replace 'w5' with a flex-basis class */}
@@ -40,7 +41,8 @@ class MetadataPanel extends React.Component {
   // completion) for the given entity.
   formatDateSection = function(entity) {
     const createdDateEl = (
-      <div>Posted {this.formatDate(new Date(entity.createdAt))}</div>)
+      <div>Posted {utils.formatDate(new Date(entity.createdAt))}</div>)
+      //<div>Posted {this.formatDate(new Date(entity.createdAt))}</div>)
     let lastEditDateEl = null
     // TODO use this block to check for an edit history once we add edit
     // history to the schema
@@ -48,7 +50,7 @@ class MetadataPanel extends React.Component {
       // TODO lastEditDateString should be the date of the most recent edit,
       // once we store edit history
       lastEditDateEl = (
-        <div>Last edited on {this.formatDate(new Date())}</div>)
+        <div>Last edited on {utils.formatDate(new Date())}</div>)
     }
     return (
       <div>
@@ -57,25 +59,6 @@ class MetadataPanel extends React.Component {
       </div>
     )
   }
-
-
-  // Given a Date object, returns a human-readable version that looks like:
-  // 27 November 2017, 3:45 PM
-  formatDate = function(date) {
-    const dateOptions = {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric',
-    }
-    const timeOptions = {
-      timeZone: 'America/Los_Angeles',
-      hour: 'numeric',
-      minute: '2-digit'
-    }
-    return date.toLocaleDateString('en-GB', dateOptions) + ', ' + (
-      date.toLocaleTimeString('en-US', timeOptions))
-  }
-
 
   // Given an entity with authoring groups, returns JSX for a list of groups'
   // names and member users
@@ -118,32 +101,6 @@ class MetadataPanel extends React.Component {
           .reduce((prev, curr) => [prev, ', ', curr])
         }</div>)
     }
-  }
-
-  // Given an entity with endorsements, returns JSX for a labeled count of its
-  // endorsements
-  formatEndorsements = function(entity) {
-    if (entity.endorsements) {
-      return (
-        <div>
-          {entity.endorsements.length}&nbsp;
-          {entity.endorsements.length === 1 ? 'endorsement' : 'endorsements'}
-        </div>)
-    }
-    return null
-  }
-
-  // Given an entity with comments, returns JSX for a labeled count of its
-  // comments
-  formatComments= function(entity) {
-    if (entity && entity.comments) {
-      return (
-        <div>
-          {entity.comments.length}&nbsp;
-          {entity.comments.length === 1 ? 'comment' : 'comments'}
-        </div>)
-    }
-    return null
   }
 }
 
