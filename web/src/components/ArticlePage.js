@@ -3,6 +3,7 @@ import {graphql}            from 'react-apollo'
 import {withRouter}         from 'react-router-dom'
 import gql                  from 'graphql-tag'
 
+import CommentsSection      from './CommentsSection'
 import Loading              from './Loading'
 import MetadataPanel        from './MetadataPanel'
 import RelatedArticlesPanel from './RelatedArticlesPanel'
@@ -34,6 +35,9 @@ class ArticlePage extends React.Component {
           <div className='ba'> {/* Article Body */}
             <div>{article.abstract}</div>
             <div>{article.content}</div>
+            <CommentsSection
+              entityId={article.id}
+            />
           </div>
         </div>
       </div>
