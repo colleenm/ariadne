@@ -17,7 +17,7 @@ class RelatedArticlesPanel extends React.Component {
       <div className='ba'>
         <div>Related articles</div>
         <div>
-          {article.relatedArticles
+          {article.related
               .map((recommendation) => (
                 <div key={recommendation.id}>
                   <a href={'#' + recommendation.article.id}
@@ -39,13 +39,9 @@ const RelatedArticles = gql`
     article(id: $id) {
       id
       expunged
-      relatedArticles {
+      related {
         id
-        expunged
-        article {
-          id
-          title
-        }
+        title
       }
     }
   }

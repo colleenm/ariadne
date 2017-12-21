@@ -32,7 +32,7 @@ class ArticlePage extends React.Component {
             />
           </div>
           <div className='ba'> {/* Article Body */}
-            <div>{abstract}</div>
+            <div>{article.abstract}</div>
             <div>{article.content}</div>
           </div>
         </div>
@@ -48,7 +48,7 @@ const ArticlePageArticle = gql`
       expunged
       title
       abstract
-      content
+      body
     }
   }
 `

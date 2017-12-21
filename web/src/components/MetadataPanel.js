@@ -108,7 +108,7 @@ class MetadataPanel extends React.Component {
   // Given an entity with authoring users, returns JSX for a list of those
   // users, prefaced with "With" if the entity also has authoring groups
   formatAuthoringUsers = function(entity) {
-    if (entity.authoringUsers) {
+    if (entity.authoringUsers && entity.authoringUsers.length > 0) {
       return (
         <div>{entity.authoringGroups ? 'With ' : ''}
           {entity.authoringUsers
@@ -178,9 +178,6 @@ const MetadataEntity = gql`
         id
       }
       endorsements {
-        id
-      }
-      watchers {
         id
       }
     }
