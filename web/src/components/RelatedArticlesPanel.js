@@ -13,20 +13,29 @@ class RelatedArticlesPanel extends React.Component {
 
     const {article} = this.props.RelatedArticles
 
+    // TODO: display authoring users as well as authoring groups
+    // TODO: add date posted, # comments, and # endorsements to this blurb
     return (
       <div className='ba'>
         <div>Related articles</div>
         <div>
           {article.related
-              .map((recommendation) => (
-                <div key={recommendation.id}>
-                  <a href={'#' + recommendation.article.id}
-                     key={recommendation.article.id}>
-                    {recommendation.article.title}
+              .map((article) => (
+                <div key={article.id}>
+                  <a href={'/article/' + article.id}
+                     key={article.id} className='db'>
+                    {article.title}
                   </a>
-                </div>
-              ))
-          }
+                  {article.authoringGroups
+                    .map((group, i, a) => (
+                      <a href={'/group/' + group.id}
+                         key={article.id + '.' + group.id}
+                         className='db'>
+                        {group.name}
+                      </a>
+                    ))}
+                  </div>
+              ))}
         </div>
       </div>
     )
@@ -41,7 +50,27 @@ const RelatedArticles = gql`
       expunged
       related {
         id
+        expunged
+        createdAt
         title
+        authoringGroups {
+          id
+          name
+          expunged
+          active
+        }
+        authoringUsers {
+          id
+          name
+          expunged
+          active
+        }
+        endorsements {
+          id
+        }
+        comments {
+          id
+        }
       }
     }
   }

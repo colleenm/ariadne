@@ -85,13 +85,13 @@ class MetadataPanel extends React.Component {
         <div>{entity.authoringGroups
           .map((group, i, a) => (
             <div key={group.id}>
-              <a href={'#' + group.id} className='b'>
+              <a href={'/group/' + group.id} className='b'>
                 {group.name}
               </a>
               <div>
                 {group.members
                     .map((user) => (
-                      <a href={'#' + user.id} key={user.id} className='i'>
+                      <a href={'/user/' + user.id} key={user.id} className='i'>
                         {user.name}
                       </a>
                     ))
@@ -113,7 +113,7 @@ class MetadataPanel extends React.Component {
         <div>{entity.authoringGroups ? 'With ' : ''}
           {entity.authoringUsers
           .map((user) => (
-            <a href={'#' + user.id} key={user.id}>{user.name}</a>
+            <a href={'/user/' + user.id} key={user.id}>{user.name}</a>
           ))
           .reduce((prev, curr) => [prev, ', ', curr])
         }</div>)
