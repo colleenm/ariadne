@@ -8,6 +8,7 @@ import EndorsementsSection  from './EndorsementsSection'
 import Loading              from './Loading'
 import MetadataPanel        from './MetadataPanel'
 import RelatedArticlesPanel from './RelatedArticlesPanel'
+import {styles}             from '../styles'
 
 class ArticlePage extends React.Component {
 
@@ -20,7 +21,7 @@ class ArticlePage extends React.Component {
 
     return (
       <div>
-        <div className='mb2'>{article.title}</div>
+        <div className={styles.pageTitle}>{article.title}</div>
         <div>
           <button>Follow</button>
         </div>

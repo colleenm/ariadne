@@ -1,9 +1,9 @@
 import React         from 'react'
 import {graphql}     from 'react-apollo'
 import gql           from 'graphql-tag'
-import {utils}       from '../utils'
 
 import Loading       from './Loading'
+import {utils}       from '../utils'
 
 class MetadataPanel extends React.Component {
 
