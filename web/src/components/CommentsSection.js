@@ -19,10 +19,13 @@ class CommentsSection extends React.Component {
       <div>
         <div>Comments</div>
         <div>
+          <button>+ Add comment</button>
+        </div>
+        <div>
           {entity.comments.length === 0 ? 'No comments yet' :
               entity.comments.map((comment) => (
                 <div>
-                  [comment goes here] {/* TODO */}
+                  [comment goes here] {/* TODO fill out comment data */}
                 </div>
               ))}
         </div>

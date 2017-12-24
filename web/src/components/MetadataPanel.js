@@ -22,14 +22,14 @@ class MetadataPanel extends React.Component {
     const comments = utils.formatCommentCount(entity.comments)
 
     return (
-      <div className='ba w5'> {/* TODO replace 'w5' with a flex-basis class */}
+      <div className='ba w5 mb2'> {/* TODO replace 'w5' with a flex-basis class */}
         {/* For article pages */}
         <div>{authoringGroups}</div>
         <div>{authoringUsers}</div>
         <div>{dates}</div>
         <div>
-          <div>{endorsements}</div>
           <div>{comments}</div>
+          <div>{endorsements}</div>
         </div>
       </div>
     )

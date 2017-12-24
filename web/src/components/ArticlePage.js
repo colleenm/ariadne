@@ -4,6 +4,7 @@ import {withRouter}         from 'react-router-dom'
 import gql                  from 'graphql-tag'
 
 import CommentsSection      from './CommentsSection'
+import EndorsementsSection  from './EndorsementsSection'
 import Loading              from './Loading'
 import MetadataPanel        from './MetadataPanel'
 import RelatedArticlesPanel from './RelatedArticlesPanel'
@@ -18,13 +19,13 @@ class ArticlePage extends React.Component {
     const {article} = this.props.ArticlePageArticle
 
     return (
-      <div> {/* Article Page */}
-        <div>{article.title}</div>
+      <div>
+        <div className='mb2'>{article.title}</div>
         <div>
           <button>Follow</button>
         </div>
-        <div className='flex'>
-          <div> {/* Side Content */}
+        <div className='flex mv2'>
+          <div className='mr2'> {/* Side Content */}
             <MetadataPanel
               articleId={article.id}
             />
@@ -34,10 +35,13 @@ class ArticlePage extends React.Component {
           </div>
           <div className='ba'> {/* Article Body */}
             <div>{article.abstract}</div>
-            <div>{article.content}</div>
+            <div>{article.body}</div>
+            <EndorsementsSection
+              entityId={article.id}
+              />
             <CommentsSection
               entityId={article.id}
-            />
+              />
           </div>
         </div>
       </div>

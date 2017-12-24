@@ -1,8 +1,9 @@
-import React         from 'react'
-import {graphql}     from 'react-apollo'
-import gql           from 'graphql-tag'
+import React           from 'react'
+import {graphql}       from 'react-apollo'
+import gql             from 'graphql-tag'
 
-import Loading       from './Loading'
+import Loading         from './Loading'
+import ArticleListItem from './ArticleListItem'
 
 class RelatedArticlesPanel extends React.Component {
 
@@ -13,28 +14,17 @@ class RelatedArticlesPanel extends React.Component {
 
     const {article} = this.props.RelatedArticles
 
-    // TODO: display authoring users as well as authoring groups
-    // TODO: add date posted, # comments, and # endorsements to this blurb
     return (
       <div className='ba'>
         <div>Related articles</div>
         <div>
           {article.related
-              .map((article) => (
-                <div key={article.id}>
-                  <a href={'/article/' + article.id}
-                     key={article.id} className='db'>
-                    {article.title}
-                  </a>
-                  {article.authoringGroups
-                    .map((group, i, a) => (
-                      <a href={'/group/' + group.id}
-                         key={article.id + '.' + group.id}
-                         className='db'>
-                        {group.name}
-                      </a>
-                    ))}
-                  </div>
+              .map((item) => (
+                <ArticleListItem
+                  articleId={item.id}
+                  showSnippet={false}
+                  key={item.id}
+                  />
               ))}
         </div>
       </div>

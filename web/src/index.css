@@ -1,4 +1,4 @@
-@import 'https://fonts.googleapis.com/css?family=Open+Sans:300,400';
+@import 'https://fonts.googleapis.com/css?family=EB+Garamond';
 
 html {
   box-sizing: border-box;
@@ -9,8 +9,15 @@ html {
 }
 
 body {
+  background: #000;
+  color: #eee;
   margin: 0;
   padding: 0;
-  font-family: 'Open Sans', sans-serif;
-  background: rgba(0,0,0,.05);
+  font-family: 'EB Garamond', serif;
 }
+
+a, a:active, a:hover {
+  color: #36f1da;
+  text-decoration: none;
+}
+
