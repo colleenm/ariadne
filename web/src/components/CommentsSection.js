@@ -13,7 +13,6 @@ class CommentsSection extends React.Component {
 
     // Replace 'article' with 'entity' below when we stop using fake data
     const entity = this.props.CommentsSectionEntity.article
-    console.log(entity)
 
     return (
       <div>

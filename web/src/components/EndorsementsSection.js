@@ -13,7 +13,6 @@ class EndorsementsSection extends React.Component {
 
     // Replace 'article' with 'entity' below when we stop using fake data
     const entity = this.props.EndorsementsSectionEntity.article
-    console.log(entity)
 
     return (
       <div>
