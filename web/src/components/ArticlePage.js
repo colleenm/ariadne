@@ -19,30 +19,43 @@ class ArticlePage extends React.Component {
 
     const {article} = this.props.ArticlePageArticle
 
+    // TODO figure out when/how to show abstracts
     return (
       <div>
-        <div className={styles.pageTitle}>{article.title}</div>
         <div>
-          <button>Follow</button>
+          [header]
         </div>
-        <div className='flex mv2'>
-          <div className='mr2'> {/* Side Content */}
-            <MetadataPanel
-              articleId={article.id}
-            />
-            <RelatedArticlesPanel
-              articleId={article.id}
-            />
+        <div className={styles.pagePadding}>
+          <div className={styles.pageTitle}>{article.title}</div>
+          <div>
+            <button>Follow</button>
           </div>
-          <div className='ba'> {/* Article Body */}
-            <div>{article.abstract}</div>
-            <div>{article.body}</div>
-            <EndorsementsSection
-              entityId={article.id}
-              />
-            <CommentsSection
-              entityId={article.id}
-              />
+          <div className='flex-ns mv3'>
+            <div className='mr3 w-100 w-30-ns fl-ns'> {/* Side Content */}
+              <div className='mb3-ns mb2'>
+                <MetadataPanel
+                  articleId={article.id}
+                  />
+              </div>
+              <div className='mb0-ns mb2'>
+                <RelatedArticlesPanel
+                  articleId={article.id}
+                  />
+              </div>
+            </div>
+            {/* Article Body */}
+            <div className={styles.borderedSection + ' fl-ns w-70-ns'}>
+              <div>{article.abstract}</div>
+              <div className='mb3'>{article.body}</div>
+              <div className='mb3'>
+                <EndorsementsSection
+                  entityId={article.id}
+                  />
+              </div>
+              <CommentsSection
+                entityId={article.id}
+                />
+            </div>
           </div>
         </div>
       </div>

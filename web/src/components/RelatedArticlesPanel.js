@@ -4,6 +4,7 @@ import gql             from 'graphql-tag'
 
 import Loading         from './Loading'
 import ArticleListItem from './ArticleListItem'
+import {styles}        from '../styles'
 
 class RelatedArticlesPanel extends React.Component {
 
@@ -15,7 +16,7 @@ class RelatedArticlesPanel extends React.Component {
     const {article} = this.props.RelatedArticles
 
     return (
-      <div className='ba'>
+      <div className={styles.borderedSection}>
         <div>Related articles</div>
         <div>
           {article.related
