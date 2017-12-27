@@ -4,6 +4,7 @@ import gql           from 'graphql-tag'
 import {utils}       from '../utils'
 
 import Loading       from './Loading'
+import {styles}      from '../styles'
 
 class ArticleListItem extends React.Component {
 
@@ -20,15 +21,29 @@ class ArticleListItem extends React.Component {
     }
 
     return (
-      <div>
-        <a href={'/article/' + article.id} key={article.id} className='db'>
+      <div className='mb2'>
+        <a href={'/article/' + article.id} key={article.id}
+          className='db f5'>
           {article.title}
         </a>
-        {/* TODO date posted/updated */}
-        {/* TODO authoring groups, authoring users */}
-        <div>{utils.formatCommentCount(article.comments)}</div>
-        <div>{utils.formatEndorsementCount(article.endorsements)}</div>
-        <div>{snippet}</div>
+        {/* TODO real authoring groups, authoring users */}
+        <div className='mb1 f6'>
+          <a className='white'>Uncertainty Cult</a>,&nbsp;
+          <a>imaginarybob</a>
+        </div>
+        <div className={styles.dullText + ' f6'}>
+          <div className='mb1'>
+            {/* TODO real date posted/updated */}
+            <div>Posted 16 December 2017, 1:37 PM</div>
+            <div>Last edited on 17 December 2017, 11:57 AM</div>
+          </div>
+          <div className='flex mb1'>
+            <div>{utils.formatCommentCount(article.comments)}</div>
+            <div className='mh2'>&bull;</div>
+            <div>{utils.formatEndorsementCount(article.endorsements)}</div>
+          </div>
+          <div>{snippet}</div>
+        </div>
       </div>
     )
   }

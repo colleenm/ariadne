@@ -1,5 +1,10 @@
+@import 'https://fonts.googleapis.com/css?family=Alegreya+Sans:300,300i,400,400i';
+@import 'https://fonts.googleapis.com/css?family=Bellefair';
 @import 'https://fonts.googleapis.com/css?family=EB+Garamond';
 
+
+/* Whole-page styles (overrides to web defaults) 
+ *********************************************************/
 html {
   box-sizing: border-box;
 }
@@ -9,15 +14,54 @@ html {
 }
 
 body {
-  background: #000;
-  color: #eee;
   margin: 0;
   padding: 0;
+}
+
+body, input, textarea {
+  background: #000;
+  color: rgba(255, 255, 255, .9);
   font-family: 'EB Garamond', serif;
+  outline: none;
+}
+
+::placeholder {
+  color: inherit;
+  opacity: 0.8;
 }
 
 a, a:active, a:hover {
-  color: #36f1da;
+  color: #9EEBCF;
   text-decoration: none;
+}
+
+a:hover {
+  color: #cbf9f4;
+}
+
+
+/* Extensions to Tachyons-style modular styles
+ *********************************************************/
+/* Fonts */
+.alegreya {
+  font-family: 'Alegreya Sans';
+}
+
+.alegreya-300 {
+  font-family: 'Alegreya Sans';
+  font-weight: 300;
+}
+
+.bellefair {
+  font-family: 'Bellefair';
+}
+
+.eb-garamond {
+  font-family: 'EB Garamond';
+}
+
+/* Sizing */
+.h2-5 {
+  height: 3rem;
 }
 

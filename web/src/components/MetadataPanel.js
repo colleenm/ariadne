@@ -25,10 +25,12 @@ class MetadataPanel extends React.Component {
     return (
       <div className={styles.borderedSection}> {/* TODO replace 'w5' with a flex-basis class */}
         {/* For article pages */}
-        <div>{authoringGroups}</div>
-        <div>{authoringUsers}</div>
-        <div>{dates}</div>
-        <div>
+        <div className='mb2'>
+          <div className='mb1'>{authoringGroups}</div>
+          <div>{authoringUsers}</div>
+        </div>
+        <div className='mb2'>{dates}</div>
+        <div className='white-70'>
           <div>{comments}</div>
           <div>{endorsements}</div>
         </div>
@@ -54,7 +56,7 @@ class MetadataPanel extends React.Component {
         <div>Last edited on {utils.formatDate(new Date())}</div>)
     }
     return (
-      <div>
+      <div className='white-70'>
         {createdDateEl}
         {lastEditDateEl}
       </div>
@@ -69,7 +71,7 @@ class MetadataPanel extends React.Component {
         <div>{entity.authoringGroups
           .map((group, i, a) => (
             <div key={group.id}>
-              <a href={'/group/' + group.id} className='b'>
+              <a href={'/group/' + group.id} className={styles.linkedTitle}>
                 {group.name}
               </a>
               <div>
@@ -94,7 +96,9 @@ class MetadataPanel extends React.Component {
   formatAuthoringUsers = function(entity) {
     if (entity.authoringUsers && entity.authoringUsers.length > 0) {
       return (
-        <div>{entity.authoringGroups ? 'With ' : ''}
+        <div className='i'>
+          {entity.authoringGroups ?
+              <span className='white-70'>with </span> : ''}
           {entity.authoringUsers
           .map((user) => (
             <a href={'/user/' + user.id} key={user.id}>{user.name}</a>

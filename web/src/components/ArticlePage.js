@@ -5,6 +5,7 @@ import gql                  from 'graphql-tag'
 
 import CommentsSection      from './CommentsSection'
 import EndorsementsSection  from './EndorsementsSection'
+import Header               from './Header'
 import Loading              from './Loading'
 import MetadataPanel        from './MetadataPanel'
 import RelatedArticlesPanel from './RelatedArticlesPanel'
@@ -22,13 +23,11 @@ class ArticlePage extends React.Component {
     // TODO figure out when/how to show abstracts
     return (
       <div>
-        <div>
-          [header]
-        </div>
+        <Header />
         <div className={styles.pagePadding}>
           <div className={styles.pageTitle}>{article.title}</div>
           <div>
-            <button>Follow</button>
+            <button className={styles.button}>Follow</button>
           </div>
           <div className='flex-ns mv3'>
             <div className='mr3 w-100 w-30-ns fl-ns'> {/* Side Content */}
@@ -46,8 +45,8 @@ class ArticlePage extends React.Component {
             {/* Article Body */}
             <div className={styles.borderedSection + ' fl-ns w-70-ns'}>
               <div>{article.abstract}</div>
-              <div className='mb3'>{article.body}</div>
-              <div className='mb3'>
+              <div className='mb4'>{article.body}</div>
+              <div className='mb4'>
                 <EndorsementsSection
                   entityId={article.id}
                   />
