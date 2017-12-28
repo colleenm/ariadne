@@ -1,4 +1,5 @@
-import React         from 'react'
+// Utility functions shared between components.
+// Formatting functions should return strings, not JSX, when possible.
 
 const utils = {
   // Given a Date object, returns a human-readable version that looks like:
@@ -22,11 +23,8 @@ const utils = {
   // endorsements
   'formatEndorsementCount': function(endorsements) {
     if (endorsements) {
-      return (
-        <div>
-          {endorsements.length}&nbsp;
-          {endorsements.length === 1 ? 'endorsement' : 'endorsements'}
-        </div>)
+      return endorsements.length +
+          (endorsements.length === 1 ? ' endorsement' : ' endorsements')
     }
     return null
   },
@@ -35,11 +33,8 @@ const utils = {
   // comments
   'formatCommentCount': function(comments) {
     if (comments) {
-      return (
-        <div>
-          {comments.length}&nbsp;
-          {comments.length === 1 ? 'comment' : 'comments'}
-        </div>)
+      return comments.length +
+          (comments.length === 1 ? ' comment' : ' comments')
     }
     return null
   },
