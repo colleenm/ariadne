@@ -13,21 +13,19 @@ class MetadataPanel extends React.Component {
       return <Loading />
     }
 
-    // Replace 'article' with 'entity' below when we stop using graphql-faker
+    // TODO Replace 'article' with 'entity' below to support interfaces
     const entity = this.props.MetadataEntity.article
 
     const dates = this.formatDateSection(entity)
-    const authoringGroups = this.formatAuthoringGroups(entity)
-    const authoringUsers = this.formatAuthoringUsers(entity)
+    const authorships = this.formatAuthorships(entity)
     const endorsements = utils.formatEndorsementCount(entity.endorsements)
     const comments = utils.formatCommentCount(entity.comments)
 
     return (
-      <div className={styles.borderedSection}> {/* TODO replace 'w5' with a flex-basis class */}
+      <div className={styles.borderedSection}>
         {/* For article pages */}
         <div className='mb2'>
-          <div className='mb1'>{authoringGroups}</div>
-          <div>{authoringUsers}</div>
+          <div>{authorships}</div>
         </div>
         <div className='mb2'>{dates}</div>
         <div className='white-70'>
@@ -40,12 +38,13 @@ class MetadataPanel extends React.Component {
 
 
   // TODO this only works for articles now, expand to cover other entities
+
   // Returns JSX displaying relevant date information (creation, editing,
   // completion) for the given entity.
   formatDateSection = function(entity) {
     const createdDateEl = (
-      <div>Posted {utils.formatDate(new Date(entity.createdAt))}</div>)
-      //<div>Posted {this.formatDate(new Date(entity.createdAt))}</div>)
+      <div>Posted {utils.formatDate(new Date(entity.createdAt))}</div>
+    )
     let lastEditDateEl = null
     // TODO use this block to check for an edit history once we add edit
     // history to the schema
@@ -53,7 +52,7 @@ class MetadataPanel extends React.Component {
       // TODO lastEditDateString should be the date of the most recent edit,
       // once we store edit history
       lastEditDateEl = (
-        <div>Last edited on {utils.formatDate(new Date())}</div>)
+        <div>Last edited {utils.formatDate(new Date())}</div>)
     }
     return (
       <div className='white-70'>
@@ -63,19 +62,21 @@ class MetadataPanel extends React.Component {
     )
   }
 
-  // Given an entity with authoring groups, returns JSX for a list of groups'
-  // names and member users
-  formatAuthoringGroups = function(entity) {
-    if (entity.authoringGroups) {
+  // Given an entity, returns a list of authoring groups and their
+  // constituent users, followed by users authoring as individuals.
+  formatAuthorships = function(entity) {
+    // TODO separate out authorships with no real group attached
+    if (entity.authors) {
       return (
-        <div>{entity.authoringGroups
-          .map((group, i, a) => (
-            <div key={group.id}>
-              <a href={'/group/' + group.id} className={styles.linkedTitle}>
-                {group.name}
+        <div>
+          {entity.authors.map((authorship) => (
+            <div key={authorship.group.id} className='mb1'>
+              <a href={'/group/' + authorship.group.id}
+                className={styles.linkedTitle}>
+                {authorship.group.name}
               </a>
               <div>
-                {group.members
+                {authorship.users
                     .map((user) => (
                       <a href={'/user/' + user.id} key={user.id} className='i'>
                         {user.name}
@@ -85,29 +86,13 @@ class MetadataPanel extends React.Component {
                 }
               </div>
             </div>
-          ))
-        } </div>)
-    }
-    return null
-  }
-
-  // Given an entity with authoring users, returns JSX for a list of those
-  // users, prefaced with "With" if the entity also has authoring groups
-  formatAuthoringUsers = function(entity) {
-    if (entity.authoringUsers && entity.authoringUsers.length > 0) {
-      return (
-        <div className='i'>
-          {entity.authoringGroups ?
-              <span className='white-70'>with </span> : ''}
-          {entity.authoringUsers
-          .map((user) => (
-            <a href={'/user/' + user.id} key={user.id}>{user.name}</a>
-          ))
-          .reduce((prev, curr) => [prev, ', ', curr])
-        }</div>)
+          ))}
+        </div>
+      )
     }
   }
 }
+
 
 // TODO: When we stop using graphql-faker, this query should use the entity(id)
 //       query, not the article(id) query.
@@ -118,18 +103,15 @@ const MetadataEntity = gql`
       expunged
       createdAt
       updatedAt
-      authoringUsers {
+      authors {
         id
-        expunged
-        active
-        name
-      }
-      authoringGroups {
-        id
-        expunged
-        active
-        name
-        members {
+        users {
+          id
+          expunged
+          active
+          name
+        }
+        group {
           id
           expunged
           active

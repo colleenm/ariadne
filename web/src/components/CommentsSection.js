@@ -4,6 +4,7 @@ import gql           from 'graphql-tag'
 
 import Loading       from './Loading'
 import {styles}      from '../styles'
+import {utils}       from '../utils'
 
 class CommentsSection extends React.Component {
 
@@ -17,7 +18,7 @@ class CommentsSection extends React.Component {
 
     return (
       <div>
-        <div className='flex mb1'>
+        <div className='flex'>
           <div className={styles.sectionTitle + ' mr4'}>Comments</div>
           <div>
             <button className={styles.button}>Comment</button>
@@ -25,12 +26,24 @@ class CommentsSection extends React.Component {
         </div>
         <div>
           {entity.comments.length === 0 ?
-              <span className='white-70 i'>No comments yet</span> :
+              <span className='white-50 i'>No comments yet</span> :
               entity.comments.map((comment) => (
-                <div>
-                  [comment goes here] {/* TODO fill out comment data */}
+                <div className='ba b--white-70 pa2 mt3' key={comment.id}>
+                  <div className='mb1'>
+                    <a href={'/user/' + comment.poster.id}>
+                      {comment.poster.name}&nbsp;
+                    </a>
+                    <span className={styles.dullText + ' i'}>
+                      {utils.formatDate(new Date(comment.createdAt))}
+                    </span>
+                  </div>
+                  <div>
+                    {comment.body}
+                  </div>
+                  {/* TODO threaded child comments */}
                 </div>
-              ))}
+              ))
+          }
         </div>
       </div>
     )
@@ -49,7 +62,7 @@ const CommentsSectionEntity = gql`
         expunged
         createdAt
         updatedAt
-        content
+        body
         poster {
           id
           expunged

@@ -81,7 +81,7 @@ const HeaderWithGraphQL =  graphql(HeaderData, {
   name: 'HeaderData',
   options: () => ({
     variables: {
-      id: '0x1',  // TODO get current user ID
+      id: '0xb',  // TODO get current user ID
     },
   }),
 })(Header)

@@ -21,7 +21,7 @@ class RelatedArticlesPanel extends React.Component {
             ' mb2 w-80 tc center bb b--white-70'}>
           Related articles
         </div>
-        <div>
+        <div className='mb3'>
           {article.related
               .map((item) => (
                 <ArticleListItem
@@ -30,6 +30,9 @@ class RelatedArticlesPanel extends React.Component {
                   key={item.id}
                   />
               ))}
+        </div>
+        <div>
+          <button className={styles.button}>Add article</button>
         </div>
       </div>
     )
@@ -44,27 +47,6 @@ const RelatedArticles = gql`
       expunged
       related {
         id
-        expunged
-        createdAt
-        title
-        authoringGroups {
-          id
-          name
-          expunged
-          active
-        }
-        authoringUsers {
-          id
-          name
-          expunged
-          active
-        }
-        endorsements {
-          id
-        }
-        comments {
-          id
-        }
       }
     }
   }
