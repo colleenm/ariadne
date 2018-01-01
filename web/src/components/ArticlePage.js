@@ -31,12 +31,12 @@ class ArticlePage extends React.Component {
           </div>
           <div className='flex-ns mv3'>
             <div className='mr3 w-100 w-30-ns fl-ns'> {/* Side Content */}
-              <div className='mb3-ns mb2'>
+              <div className='mb3'>
                 <MetadataPanel
                   articleId={article.id}
                   />
               </div>
-              <div className='mb0-ns mb2'>
+              <div className='mb0-ns mb3'>
                 <RelatedArticlesPanel
                   articleId={article.id}
                   />

@@ -39,6 +39,26 @@ a:hover {
   color: #cbf9f4;
 }
 
+select {
+  -webkit-appearance: none;
+  background-color: black;
+  color: rgba(255, 255, 255, .9);
+  font-family: 'Alegreya Sans';
+  border: none;
+  border-bottom: 1px solid white;
+  border-radius: 0;
+  padding: 2px;
+  padding-right: 24px;
+  background: url('./assets/ic_arrow_drop_down_white_24px.svg') no-repeat;
+  background-position: right;
+  cursor: pointer;
+}
+
+:focus {
+  outline-color: white;
+  outline-offset: -1px;
+}
+
 
 /* Extensions to Tachyons-style modular styles
  *********************************************************/

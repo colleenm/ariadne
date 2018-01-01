@@ -19,7 +19,7 @@ class CommentsSection extends React.Component {
     return (
       <div>
         <div className='flex'>
-          <div className={styles.sectionTitle + ' mr4'}>Comments</div>
+          <div className={styles.grayTitle + ' mr4'}>Comments</div>
           <div>
             <button className={styles.button}>Comment</button>
           </div>
