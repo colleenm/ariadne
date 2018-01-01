@@ -17,7 +17,10 @@ class RelatedArticlesPanel extends React.Component {
 
     return (
       <div className={styles.borderedSection}>
-        <div>Related articles</div>
+        <div className={styles.sectionTitle +
+            ' mb2 w-80 tc center bb b--white-70'}>
+          Related articles
+        </div>
         <div>
           {article.related
               .map((item) => (

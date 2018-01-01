@@ -3,6 +3,7 @@ import {graphql}     from 'react-apollo'
 import gql           from 'graphql-tag'
 
 import Loading       from './Loading'
+import {styles}      from '../styles'
 
 class EndorsementsSection extends React.Component {
 
@@ -16,17 +17,19 @@ class EndorsementsSection extends React.Component {
 
     return (
       <div>
-        <div>Endorsements</div>
-        <div>
-          <button>+ Add signature</button>
+        <div className='flex mb1'>
+          <div className={styles.sectionTitle + ' mr3'}>Endorsements</div>
+          <div>
+            <button className={styles.button}>Endorse</button>
+          </div>
         </div>
         <div>
           {entity.endorsements.length === 0 ? 'No endorsements yet' :
               entity.endorsements.map((endorser) => (
-                  <a href={'/user/' + endorser.id} key={endorser.id}>{endorser.name}</a>
-                ))
-                  .reduce((prev, curr) => [prev, ', ', curr])
-                }
+                <a href={'/user/' + endorser.id} key={endorser.id}>{endorser.name}</a>
+              ))
+              .reduce((prev, curr) => [prev, ', ', curr])
+          }
         </div>
       </div>
     )

@@ -3,6 +3,7 @@ import {graphql}     from 'react-apollo'
 import gql           from 'graphql-tag'
 
 import Loading       from './Loading'
+import {styles}      from '../styles'
 
 class CommentsSection extends React.Component {
 
@@ -16,12 +17,15 @@ class CommentsSection extends React.Component {
 
     return (
       <div>
-        <div>Comments</div>
-        <div>
-          <button>+ Add comment</button>
+        <div className='flex mb1'>
+          <div className={styles.sectionTitle + ' mr4'}>Comments</div>
+          <div>
+            <button className={styles.button}>Comment</button>
+          </div>
         </div>
         <div>
-          {entity.comments.length === 0 ? 'No comments yet' :
+          {entity.comments.length === 0 ?
+              <span className='white-70 i'>No comments yet</span> :
               entity.comments.map((comment) => (
                 <div>
                   [comment goes here] {/* TODO fill out comment data */}
