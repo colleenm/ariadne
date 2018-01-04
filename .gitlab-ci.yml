@@ -1,3 +1,16 @@
+api:
+
+  image: node:latest
+
+  cache:
+    paths:
+    - api/node_modules/
+
+  script:
+    - cd api
+    - yarn install
+    - ./start-faker
+
 web:
 
   image: node:latest
