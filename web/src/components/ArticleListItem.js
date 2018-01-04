@@ -1,10 +1,10 @@
 import React         from 'react'
 import {graphql}     from 'react-apollo'
 import gql           from 'graphql-tag'
-import {utils}       from '../utils'
 
 import Loading       from './Loading'
 import {styles}      from '../styles'
+import {utils}       from '../utils'
 
 class ArticleListItem extends React.Component {
 

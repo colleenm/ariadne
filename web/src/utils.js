@@ -19,8 +19,25 @@ const utils = {
       date.toLocaleTimeString('en-US', timeOptions))
   },
 
-  // Given a list of endorsements, returns JSX for a labeled count of its
-  // endorsements
+  // Given a list of articles, returns a labeled count of them.
+  'formatArticleCount': function(articles) {
+    if (articles) {
+      return articles.length +
+          (articles.length === 1 ? ' article' : ' articles')
+    }
+    return null
+  },
+
+  // Given a list of comments, returns a labeled count of them.
+  'formatCommentCount': function(comments) {
+    if (comments) {
+      return comments.length +
+          (comments.length === 1 ? ' comment' : ' comments')
+    }
+    return null
+  },
+
+  // Given a list of endorsements, returns a labeled count of them.
   'formatEndorsementCount': function(endorsements) {
     if (endorsements) {
       return endorsements.length +
@@ -29,14 +46,12 @@ const utils = {
     return null
   },
 
-  // Given a list of comments, returns JSX for a labeled count of its
-  // comments
-  'formatCommentCount': function(comments) {
-    if (comments) {
-      return comments.length +
-          (comments.length === 1 ? ' comment' : ' comments')
+  // Given a list of requests, returns a labeled count of them.
+  'formatRequestCount': function(requests) {
+    if (requests) {
+      return requests.length +
+        (requests.length === 1 ? ' request' : ' requests')
     }
-    return null
   },
 }
 

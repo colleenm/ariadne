@@ -8,7 +8,7 @@ import {InMemoryCache}        from 'apollo-cache-inmemory'
 import 'tachyons'
 
 import UserListPage           from './components/UserListPage'
-import UserDetailPage         from './components/UserDetailPage'
+import UserPage               from './components/UserPage'
 import ArticlePage            from './components/ArticlePage'
 import './index.css'
 
@@ -26,7 +26,7 @@ ReactDOM.render(
     <BrowserRouter>
       <div>
         <Route exact path='/'            component={UserListPage} />
-        <Route       path='/user/:id'    component={UserDetailPage} />
+        <Route       path='/user/:id'    component={UserPage} />
         <Route       path='/article/:id' component={ArticlePage} />
       </div>
     </BrowserRouter>
