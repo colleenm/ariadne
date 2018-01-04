@@ -1,0 +1,12 @@
+web:
+
+  image: node:latest
+
+  cache:
+    paths:
+    - web/node_modules/
+
+  script:
+    - cd web
+    - yarn install
+    - yarn run lint
