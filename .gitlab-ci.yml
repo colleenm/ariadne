@@ -10,4 +10,3 @@ web:
     - cd web
     - yarn install
     - yarn run lint
-    - yarn start
