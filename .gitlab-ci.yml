@@ -1,3 +1,12 @@
-job1:
+web:
+
+  image: node:latest
+
+  cache:
+    paths:
+    - web/node_modules/
+
   script:
-    - echo "Checking to see if these jobs are running in a reasonable amount of time yet..."
+    - cd web
+    - yarn install
+    - ran run lint
