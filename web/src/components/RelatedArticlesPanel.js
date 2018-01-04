@@ -17,7 +17,7 @@ class RelatedArticlesPanel extends React.Component {
 
     return (
       <div className={styles.borderedSection}>
-        <div className={styles.sectionTitle +
+        <div className={styles.grayTitle +
             ' mb2 w-80 tc center bb b--white-70'}>
           Related articles
         </div>

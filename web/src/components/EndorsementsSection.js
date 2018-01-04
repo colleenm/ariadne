@@ -18,7 +18,7 @@ class EndorsementsSection extends React.Component {
     return (
       <div>
         <div className='flex mb1'>
-          <div className={styles.sectionTitle + ' mr3'}>Endorsements</div>
+          <div className={styles.grayTitle + ' mr3'}>Endorsements</div>
           <div>
             <button className={styles.button}>Endorse</button>
           </div>

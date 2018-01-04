@@ -3,9 +3,10 @@ import {graphql}          from 'react-apollo'
 import {withRouter}       from 'react-router-dom'
 import gql                from 'graphql-tag'
 
-import UserMetadataPanel  from './UserMetadataPanel'
 import Header             from './Header'
 import Loading            from './Loading'
+import SortableEntityList from './SortableEntityList'
+import UserMetadataPanel  from './UserMetadataPanel'
 import {styles}           from '../styles'
 
 class UserPage extends React.Component {
@@ -17,6 +18,8 @@ class UserPage extends React.Component {
 
     const {user} = this.props.UserPageUser
 
+    let entityListsByType = this.createEntityListsByType(user)
+
     return (
       <div>
         <Header />
@@ -26,7 +29,7 @@ class UserPage extends React.Component {
             {user.name}
           </div>
           <div className='flex-ns mv3'>
-            <div className='mr3'> {/* Side panel */}
+            <div className='mr3-ns mb3 mb0-ns'> {/* Side panel */}
               <div className={styles.borderedSection + ' mb3'}>
                 <UserMetadataPanel
                   agentId={user.id}
@@ -42,13 +45,37 @@ class UserPage extends React.Component {
                 I am a user bio. Look at all the things I have to say.
               </div>
               <div className={styles.borderedSection}> {/* Main content */}
-                [SortableEntityList]
+                <SortableEntityList
+                  lists={entityListsByType}
+                  />
               </div>
             </div>
           </div>
         </div>
       </div>
     )
+  }
+
+  createEntityListsByType = function(user) {
+    const listsByType= {}
+
+    // TODO divide authorships into articles and op-eds
+    if (user.authorships) {
+      listsByType['Articles'] = (
+        user.authorships.map((authorship) => authorship.article))
+    }
+    if (user.commentsPosted) {
+      listsByType['Comments'] = user.commentsPosted
+    }
+    if (user.requestsMade) {
+      listsByType['Requests'] = user.requestsMade
+    }
+    if (user.articlesEndorsed) {
+      // TODO this should be user.articlesEndorsed, change when fake data fixed
+      listsByType['Endorsements'] = listsByType['Articles'].slice(4)
+    }
+
+    return listsByType
   }
 }
 
