@@ -1,18 +1,18 @@
-import React                      from 'react'
-import {graphql}                  from 'react-apollo'
-import gql                        from 'graphql-tag'
-import {slide as Menu}            from 'react-burger-menu'
+import React           from 'react'
+import {graphql}       from 'react-apollo'
+import gql             from 'graphql-tag'
+import {slide as Menu} from 'react-burger-menu'
 
-import Loading                    from './Loading'
-import SearchBar                  from './SearchBar'
-import {paths}                    from '../constants/paths'
-import {styles, mobileMenuStyles} from '../styles'
+import Loading         from './Loading'
+import SearchBar       from './SearchBar'
+import {paths}         from '../constants/paths'
+import {styles}        from '../styles'
 
-import articlesIcon               from '../assets/article-icon.png'
-import avatar                     from '../assets/avatar.png'
-import bulletinIcon               from '../assets/bulletin-icon.png'
-import labyrinthLogo              from '../assets/labyrinth.svg'
-import menuIcon                   from '../assets/menu-icon.png'
+import articlesIcon    from '../assets/article-icon.png'
+import avatar          from '../assets/avatar.png'
+import bulletinIcon    from '../assets/bulletin-icon.png'
+import labyrinthLogo   from '../assets/labyrinth.svg'
+import menuIcon        from '../assets/menu-icon.png'
 
 class Header extends React.Component {
 
@@ -22,6 +22,27 @@ class Header extends React.Component {
     }
 
     const {user} = this.props.HeaderData
+
+    const mobileMenuStyles = {
+      'bmBurgerButton': {
+        'position': 'fixed',
+        'width': '24px',
+        'height': '24px',
+        'right': '16px',
+        'top': '12px',
+      },
+      'bmCross': {
+        'backgroundColor': '#eeeeee',
+      },
+      'bmMenu': {
+        'backgroundColor': '#000',
+        'border': '1px solid #eee',
+      },
+      'bmOverlay': {
+        'backgroundColor': 'rgba(0, 0, 0, 0.5)',
+        'left': '0',
+      },
+    }
 
     return (
       <div className='bb b--white-70'>
