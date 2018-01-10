@@ -60,34 +60,36 @@ class Header extends React.Component {
             </div>
           </div>
 
-          <Menu right styles={mobileMenuStyles}
-            customBurgerIcon={<img src={menuIcon} className='v-mid' alt='menu icon' />} >
-            <div className='pa3'>
-              <div>
-                <a href={'/user/' + user.id}>
-                  {/* TODO use real avatar */}
-                  <img src={avatar} alt='user avatar' className='v-mid' height='40px'/>
-                  <span className={styles.linkedTitle + ' ml3'}>{user.name}</span>
-                </a>
-              </div>
-              <div className='mv4'>
-                <a className={styles.linkedTitle + ' menu-item db mb3'} href='/articles'>All articles</a>
-                <a className={styles.linkedTitle + ' menu-item db mb3'} href='/bulletin'>Bulletin</a>
-              </div>
-              <SearchBar />
-              <div className='mv4'>
-                <div className={styles.grayTitle + ' mb2'}>Groups</div>
-                <div className='ml2'>
-                  {user.currentGroups.map((group) => (
-                    <a href={'/group/' + group.id} key={group.id}
-                      className={styles.linkedTitle + ' db mb3'}>
-                      {group.name}
-                    </a>
-                  ))}
+          <div className='dn-l'>
+            <Menu right styles={mobileMenuStyles}
+              customBurgerIcon={<img src={menuIcon} className='v-mid' alt='menu icon' />} >
+              <div className='pa3'>
+                <div>
+                  <a href={'/user/' + user.id}>
+                    {/* TODO use real avatar */}
+                    <img src={avatar} alt='user avatar' className='v-mid' height='40px'/>
+                    <span className={styles.linkedTitle + ' ml3'}>{user.name}</span>
+                  </a>
+                </div>
+                <div className='mv4'>
+                  <a className={styles.linkedTitle + ' menu-item db mb3'} href='/articles'>All articles</a>
+                  <a className={styles.linkedTitle + ' menu-item db mb3'} href='/bulletin'>Bulletin</a>
+                </div>
+                <SearchBar />
+                <div className='mv4'>
+                  <div className={styles.grayTitle + ' mb2'}>Groups</div>
+                  <div className='ml2'>
+                    {user.currentGroups.map((group) => (
+                      <a href={'/group/' + group.id} key={group.id}
+                        className={styles.linkedTitle + ' db mb3'}>
+                        {group.name}
+                      </a>
+                    ))}
+                  </div>
                 </div>
               </div>
-            </div>
-          </Menu>
+            </Menu>
+          </div>
 
         </div>
       </div>
