@@ -11,4 +11,25 @@ const styles = {
   'dullText': grayTextColor,
 }
 
-export {styles}
+const mobileMenuStyles = {
+  'bmBurgerButton': {
+    'position': 'fixed',
+    'width': '24px',
+    'height': '24px',
+    'right': '16px',
+    'top': '12px',
+  },
+  'bmCross': {
+    'backgroundColor': '#eeeeee',
+  },
+  'bmMenu': {
+    'backgroundColor': '#000',
+    'border': '1px solid #eee',
+  },
+  'bmOverlay': {
+    'backgroundColor': 'rgba(0, 0, 0, 0.5)',
+    'left': '0',
+  },
+}
+
+export {styles, mobileMenuStyles}
