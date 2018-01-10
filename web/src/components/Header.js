@@ -1,15 +1,17 @@
-import React         from 'react'
-import {graphql}     from 'react-apollo'
-import gql           from 'graphql-tag'
+import React                      from 'react'
+import {graphql}                  from 'react-apollo'
+import gql                        from 'graphql-tag'
+import {slide as Menu}            from 'react-burger-menu'
 
-import Loading       from './Loading'
-import SearchBar     from './SearchBar'
+import Loading                    from './Loading'
+import SearchBar                  from './SearchBar'
+import {styles, mobileMenuStyles} from '../styles'
 
-import articlesIcon  from '../assets/article-icon.png'
-import avatar        from '../assets/avatar.png'
-import bulletinIcon  from '../assets/bulletin-icon.png'
-import labyrinthLogo from '../assets/labyrinth.svg'
-import menuIcon      from '../assets/menu-icon.png'
+import articlesIcon               from '../assets/article-icon.png'
+import avatar                     from '../assets/avatar.png'
+import bulletinIcon               from '../assets/bulletin-icon.png'
+import labyrinthLogo              from '../assets/labyrinth.svg'
+import menuIcon                   from '../assets/menu-icon.png'
 
 class Header extends React.Component {
 
@@ -56,11 +58,37 @@ class Header extends React.Component {
                 <img src={avatar} alt='user avatar' height='40px'/>
               </a>
             </div>
-            <div className='dib dn-l ma2 v-mid'>
-              {/* TODO menu should open right-side drawer panel on mobile */}
-              <img src={menuIcon} alt='menu icon' />
-            </div>
           </div>
+
+          <Menu right styles={mobileMenuStyles}
+            customBurgerIcon={<img src={menuIcon} className='v-mid' alt='menu icon' />} >
+            <div className='pa3'>
+              <div>
+                <a href={'/user/' + user.id}>
+                  {/* TODO use real avatar */}
+                  <img src={avatar} alt='user avatar' className='v-mid' height='40px'/>
+                  <span className={styles.linkedTitle + ' ml3'}>{user.name}</span>
+                </a>
+              </div>
+              <div className='mv4'>
+                <a className={styles.linkedTitle + ' menu-item db mb3'} href='/articles'>All articles</a>
+                <a className={styles.linkedTitle + ' menu-item db mb3'} href='/bulletin'>Bulletin</a>
+              </div>
+              <SearchBar />
+              <div className='mv4'>
+                <div className={styles.grayTitle + ' mb2'}>Groups</div>
+                <div className='ml2'>
+                  {user.currentGroups.map((group) => (
+                    <a href={'/group/' + group.id} key={group.id}
+                      className={styles.linkedTitle + ' db mb3'}>
+                      {group.name}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </Menu>
+
         </div>
       </div>
     )
@@ -73,6 +101,11 @@ const HeaderData = gql`
       id
       expunged
       active
+      name
+      currentGroups {
+        id
+        name
+      }
     }
   }
 `
@@ -81,7 +114,7 @@ const HeaderWithGraphQL =  graphql(HeaderData, {
   name: 'HeaderData',
   options: () => ({
     variables: {
-      id: '0xb',  // TODO get current user ID
+      id: process.env.REACT_APP_CURRENT_USER_ID,  // TODO get current user ID
     },
   }),
 })(Header)
