@@ -3,6 +3,7 @@ import {graphql}     from 'react-apollo'
 import gql           from 'graphql-tag'
 
 import Loading       from './Loading'
+import {paths}       from '../constants/paths'
 import {styles}      from '../styles'
 import {utils}       from '../utils'
 
@@ -30,7 +31,7 @@ class CommentsSection extends React.Component {
               entity.comments.map((comment) => (
                 <div className='ba b--white-70 pa2 mt3' key={comment.id}>
                   <div className='mb1'>
-                    <a href={'/user/' + comment.poster.id}>
+                    <a href={paths.user + comment.poster.id}>
                       {comment.poster.name}&nbsp;
                     </a>
                     <span className={styles.dullText + ' i'}>

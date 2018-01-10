@@ -3,6 +3,7 @@ import {graphql}     from 'react-apollo'
 import gql           from 'graphql-tag'
 
 import Loading       from './Loading'
+import {paths}       from '../constants/paths'
 import {styles}      from '../styles'
 import {utils}       from '../utils'
 
@@ -71,14 +72,14 @@ class MetadataPanel extends React.Component {
         <div>
           {entity.authors.map((authorship) => (
             <div key={authorship.group.id} className='mb1'>
-              <a href={'/group/' + authorship.group.id}
+              <a href={paths.group + authorship.group.id}
                 className={styles.linkedTitle}>
                 {authorship.group.name}
               </a>
               <div>
                 {authorship.users
                     .map((user) => (
-                      <a href={'/user/' + user.id} key={user.id} className='i'>
+                      <a href={paths.user + user.id} key={user.id} className='i'>
                         {user.name}
                       </a>
                     ))
