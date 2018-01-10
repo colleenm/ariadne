@@ -3,6 +3,7 @@ import {graphql}     from 'react-apollo'
 import gql           from 'graphql-tag'
 
 import Loading       from './Loading'
+import {paths}       from '../constants/paths'
 import {styles}      from '../styles'
 
 class EndorsementsSection extends React.Component {
@@ -26,7 +27,9 @@ class EndorsementsSection extends React.Component {
         <div>
           {entity.endorsements.length === 0 ? 'No endorsements yet' :
               entity.endorsements.map((endorser) => (
-                <a href={'/user/' + endorser.id} key={endorser.id}>{endorser.name}</a>
+                <a href={paths.user + endorser.id} key={endorser.id}>
+                  {endorser.name}
+                </a>
               ))
               .reduce((prev, curr) => [prev, ', ', curr])
           }

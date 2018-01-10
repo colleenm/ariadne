@@ -3,6 +3,7 @@ import {graphql}     from 'react-apollo'
 import gql           from 'graphql-tag'
 
 import Loading       from './Loading'
+import {paths}       from '../constants/paths'
 import {styles}      from '../styles'
 import {utils}       from '../utils'
 
@@ -24,7 +25,7 @@ class ArticleListItem extends React.Component {
 
     return (
       <div className='mb2'>
-        <a href={'/article/' + article.id} key={article.id}
+        <a href={paths.article + article.id} key={article.id}
           className='db f5'>
           {article.title}
         </a>
@@ -54,7 +55,7 @@ class ArticleListItem extends React.Component {
       <div>
         {authorships
             .map((authorship) => (
-              <a href={'/group/' + authorship.group.id}
+              <a href={paths.group + authorship.group.id}
                 key={authorship.group.id}
                 className='white'>
                 {authorship.group.name}

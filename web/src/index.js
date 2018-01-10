@@ -10,6 +10,7 @@ import 'tachyons'
 import UserListPage           from './components/UserListPage'
 import UserPage               from './components/UserPage'
 import ArticlePage            from './components/ArticlePage'
+import {paths}                from './constants/paths.js'
 import './index.css'
 
 const httpLink = new HttpLink({
@@ -25,9 +26,9 @@ ReactDOM.render(
   <ApolloProvider client={client}>
     <BrowserRouter>
       <div>
-        <Route exact path='/'            component={UserListPage} />
-        <Route       path='/user/:id'    component={UserPage} />
-        <Route       path='/article/:id' component={ArticlePage} />
+        <Route exact path='/'                     component={UserListPage} />
+        <Route       path={paths.user + ':id'}    component={UserPage} />
+        <Route       path={paths.article + ':id'} component={ArticlePage} />
       </div>
     </BrowserRouter>
   </ApolloProvider>,

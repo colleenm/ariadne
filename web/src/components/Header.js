@@ -5,6 +5,7 @@ import {slide as Menu}            from 'react-burger-menu'
 
 import Loading                    from './Loading'
 import SearchBar                  from './SearchBar'
+import {paths}                    from '../constants/paths'
 import {styles, mobileMenuStyles} from '../styles'
 
 import articlesIcon               from '../assets/article-icon.png'
@@ -42,10 +43,10 @@ class Header extends React.Component {
           <div className='dib self-center mr2'> {/* Right-justified content */}
             {user.active === false ? '' :
                 <div className='dib'>
-                  <a href='/articles/' className='dn dib-l ma2 v-mid'>
+                  <a href={paths.allArticles} className='dn dib-l ma2 v-mid'>
                     <img src={articlesIcon} alt='link to articles page' />
                   </a>
-                  <a href='/bulletin/'
+                  <a href={paths.bulletin}
                     className='dn dib-l ma2 v-mid'>
                     <img src={bulletinIcon} alt='link to bulletin page' />
                   </a>
@@ -53,7 +54,7 @@ class Header extends React.Component {
             }
             {/* TODO add alerts widget in v1 */}
             <div className='dn dib-l ma2 v-mid'>
-              <a href={'/user/' + user.id}>
+              <a href={paths.user + user.id}>
                 {/* TODO use real avatar */}
                 <img src={avatar} alt='user avatar' height='40px'/>
               </a>
@@ -65,22 +66,24 @@ class Header extends React.Component {
               customBurgerIcon={<img src={menuIcon} className='v-mid' alt='menu icon' />} >
               <div className='pa3'>
                 <div>
-                  <a href={'/user/' + user.id}>
+                  <a href={paths.user + user.id}>
                     {/* TODO use real avatar */}
                     <img src={avatar} alt='user avatar' className='v-mid' height='40px'/>
                     <span className={styles.linkedTitle + ' ml3'}>{user.name}</span>
                   </a>
                 </div>
                 <div className='mv4'>
-                  <a className={styles.linkedTitle + ' menu-item db mb3'} href='/articles'>All articles</a>
-                  <a className={styles.linkedTitle + ' menu-item db mb3'} href='/bulletin'>Bulletin</a>
+                  <a className={styles.linkedTitle + ' menu-item db mb3'}
+                    href={paths.allArticles}>All articles</a>
+                  <a className={styles.linkedTitle + ' menu-item db mb3'}
+                    href={paths.bulletin}>Bulletin</a>
                 </div>
                 <SearchBar />
                 <div className='mv4'>
                   <div className={styles.grayTitle + ' mb2'}>Groups</div>
                   <div className='ml2'>
                     {user.currentGroups.map((group) => (
-                      <a href={'/group/' + group.id} key={group.id}
+                      <a href={paths.group + group.id} key={group.id}
                         className={styles.linkedTitle + ' db mb3'}>
                         {group.name}
                       </a>

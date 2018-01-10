@@ -3,6 +3,7 @@ import {graphql}     from 'react-apollo'
 import gql           from 'graphql-tag'
 
 import Loading       from './Loading'
+import {paths}       from '../constants/paths'
 import {styles}      from '../styles'
 import {utils}       from '../utils'
 
@@ -28,7 +29,7 @@ class UserMetadataPanel extends React.Component {
           <div>Member of:</div>
           {user.currentGroups.map((group) => (
             <div key={group.id}>
-              <a href={'/group/' + group.id} className='white'>
+              <a href={paths.group + group.id} className='white'>
                 {group.name}
               </a>
             </div>
