@@ -1,54 +1,50 @@
 import React                from 'react'
-import {graphql, compose}   from 'react-apollo'
-import {withRouter}         from 'react-router-dom'
+import {graphql}   from 'react-apollo'
 import gql                  from 'graphql-tag'
 
-import Header               from './Header'
 import Loading              from './Loading'
 
 class HomePage extends React.Component {
 
   render() {
-    if (this.props.HomePageLoggedInUser.loading) {
+    if (this.props.HomePageUser.loading) {
       return (<Loading />)
     }
 
-    const {loggedInUser} = this.props.HomePageLoggedInUser
+    const user = this.props.HomePageUser.User
 
-    if (loggedInUser) {
+    if (this.props.loggedInUser && user) {
       return (
-        <div>
-          <Header />
-          <div className='center w6 tc mv7'>
-            <div>hello user {loggedInUser.id}</div>
-          </div>
+        <div className='center w6 tc mv7'>
+          <div>hello {user.name}</div>
         </div>
       )
     } else {
       return (
-        <div>
-          <Header />
-          <div className='center w6 tc mv7'>
-            <div>please <a href='/login/'>log in </a> or <a href='/signup/'>sign up</a></div>
-          </div>
+        <div className='center w6 tc mv7'>
+          <div>please <a href='/login/'>log in </a> or <a href='/signup/'>sign up</a></div>
         </div>
       )
     }
   }
 }
 
-const HomePageLoggedInUser = gql`
-  query HomePageLoggedInUser {
-    loggedInUser {
+const HomePageUser = gql`
+  query HomePageUser ($id: ID!) {
+    User(id: $id) {
       id
+      name
     }
   }
 `
 
-export default compose(
-  graphql(HomePageLoggedInUser, {
-    name: 'HomePageLoggedInUser',
-    options: {fetchPolicy: 'network-only'},
+const HomePageWithGraphQL =  graphql(HomePageUser, {
+  name: 'HomePageUser',
+  options: ({loggedInUser}) => ({
+    variables: {
+      id: loggedInUser,
+    },
   }),
-)(withRouter(HomePage))
+})(HomePage)
 
+export default HomePageWithGraphQL
