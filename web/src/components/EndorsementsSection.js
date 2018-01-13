@@ -1,10 +1,10 @@
-import React         from 'react'
-import {graphql}     from 'react-apollo'
-import gql           from 'graphql-tag'
+import React     from 'react'
+import {graphql} from 'react-apollo'
+import gql       from 'graphql-tag'
 
-import Loading       from './Loading'
-import {paths}       from '../constants/paths'
-import {styles}      from '../styles'
+import Loading   from './Loading'
+import {paths}   from '../constants/paths'
+import {styles}  from '../styles'
 
 class EndorsementsSection extends React.Component {
 
@@ -64,4 +64,3 @@ const EndorsementsSectionWithGraphQL =  graphql(EndorsementsSectionEntity, {
 })(EndorsementsSection)
 
 export default EndorsementsSectionWithGraphQL
-

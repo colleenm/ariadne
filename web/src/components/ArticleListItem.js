@@ -1,11 +1,11 @@
-import React         from 'react'
-import {graphql}     from 'react-apollo'
-import gql           from 'graphql-tag'
+import React     from 'react'
+import {graphql} from 'react-apollo'
+import gql       from 'graphql-tag'
 
-import Loading       from './Loading'
-import {paths}       from '../constants/paths'
-import {styles}      from '../styles'
-import {utils}       from '../utils'
+import Loading   from './Loading'
+import {paths}   from '../constants/paths'
+import {styles}  from '../styles'
+import {utils}   from '../utils'
 
 class ArticleListItem extends React.Component {
 
@@ -108,4 +108,3 @@ const ArticleListItemWithGraphQL =  graphql(ArticleListItemArticle, {
 })(ArticleListItem)
 
 export default ArticleListItemWithGraphQL
-
