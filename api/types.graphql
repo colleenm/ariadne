@@ -14,7 +14,7 @@ type User @model {
 
     contacts               : [User!]!       @relation(name      : "UserContacts")
     contactOf              : [User!]!       @relation(name      : "UserContacts")
-    groups                 : [Group!]!      @relation(name      : "UserGroups")
+    currentGroups          : [Group!]!      @relation(name      : "UserCurrentGroups")
     formerGroups           : [Group!]!      @relation(name      : "UserFormerGroups")
     commentsPosted         : [Comment!]!    @relation(name      : "UserCommentsPosted")
     authorships            : [Authorship!]! @relation(name      : "UserAuthorships")
@@ -45,7 +45,7 @@ type Group @model {
     imageURL      : String!
     authorships   : [Authorship!]! @relation(name      : "GroupAuthorships")
     # requests    : [Request!]!    @relation(name      : "GroupRequestsAuthored")
-    members       : [User!]!       @relation(name      : "UserGroups")
+    members       : [User!]!       @relation(name      : "UserCurrentGroups")
     formerMembers : [User!]!       @relation(name      : "UserFormerGroups")
 
     watchers      : [User!]!       @relation(name      : "UserGroupsWatched")
@@ -61,10 +61,11 @@ type Article @model {
     abstract     : String!
     content      : String!
 
-    authorships  : [Authorship!]! @relation(name      : "AuthorshipArticle")
+    authors      : [Authorship!]! @relation(name      : "AuthorshipArticle")
     watchers     : [User!]!       @relation(name      : "UserArticlesWatched")
     comments     : [Comment!]!    @relation(name      : "ArticleComments")
     endorsements : [User!]!       @relation(name      : "UserArticlesEndorsed")
+    # TODO related articles
 }
 
 type Authorship @model {
