@@ -1,14 +1,20 @@
 {
-  "name": "ariadne-api",
-  "version": "0.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "name": "server",
+  "version": "1.0.0",
+  "description": "My Graphcool Service",
+  "dependencies": {
+    "graphcool-framework": "^0.11.5",
+    "@types/bcryptjs": "^2.4.1",
+    "@types/validator": "^6.3.0",
+    "bcryptjs": "^2.4.3",
+    "graphcool-lib": "^0.1.0",
+    "graphql-request": "^1.4.0",
+    "validator": "^9.0.0"
   },
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "graphql-faker": "^1.5.1"
+  "scripts": {
+    "graphcool"  : "./node_modules/.bin/graphcool-framework",
+    "up"         : "./node_modules/.bin/graphcool-framework local up",
+    "deploy"     : "./node_modules/.bin/graphcool-framework deploy",
+    "playground" : "./node_modules/.bin/graphcool-framework playground"
   }
 }

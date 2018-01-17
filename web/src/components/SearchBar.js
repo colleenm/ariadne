@@ -1,6 +1,6 @@
-import React         from 'react'
+import React      from 'react'
 
-import searchIcon    from '../assets/search-icon.png'
+import searchIcon from '../assets/search-icon.png'
 
 class SearchBar extends React.Component {
 
@@ -16,4 +16,3 @@ class SearchBar extends React.Component {
 }
 
 export default SearchBar
-

@@ -1,11 +1,11 @@
-import React         from 'react'
-import {graphql}     from 'react-apollo'
-import gql           from 'graphql-tag'
+import React     from 'react'
+import {graphql} from 'react-apollo'
+import gql       from 'graphql-tag'
 
-import Loading       from './Loading'
-import {paths}       from '../constants/paths'
-import {styles}      from '../styles'
-import {utils}       from '../utils'
+import Loading   from './Loading'
+import {paths}   from '../constants/paths'
+import {styles}  from '../styles'
+import {utils}   from '../utils'
 
 class CommentsSection extends React.Component {
 
@@ -88,4 +88,3 @@ const CommentsSectionWithGraphQL =  graphql(CommentsSectionEntity, {
 })(CommentsSection)
 
 export default CommentsSectionWithGraphQL
-

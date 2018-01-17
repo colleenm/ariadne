@@ -4,7 +4,7 @@
 const utils = {
   // Given a Date object, returns a human-readable version that looks like:
   // 27 November 2017, 3:45 PM
-  'formatDate': function(date) {
+  formatDate: function(date) {
     const dateOptions = {
       day: 'numeric',
       month: 'long',
@@ -20,7 +20,7 @@ const utils = {
   },
 
   // Given a list of articles, returns a labeled count of them.
-  'formatArticleCount': function(articles) {
+  formatArticleCount: function(articles) {
     if (articles) {
       return articles.length +
           (articles.length === 1 ? ' article' : ' articles')
@@ -29,7 +29,7 @@ const utils = {
   },
 
   // Given a list of comments, returns a labeled count of them.
-  'formatCommentCount': function(comments) {
+  formatCommentCount: function(comments) {
     if (comments) {
       return comments.length +
           (comments.length === 1 ? ' comment' : ' comments')
@@ -38,7 +38,7 @@ const utils = {
   },
 
   // Given a list of endorsements, returns a labeled count of them.
-  'formatEndorsementCount': function(endorsements) {
+  formatEndorsementCount: function(endorsements) {
     if (endorsements) {
       return endorsements.length +
           (endorsements.length === 1 ? ' endorsement' : ' endorsements')
@@ -47,7 +47,7 @@ const utils = {
   },
 
   // Given a list of requests, returns a labeled count of them.
-  'formatRequestCount': function(requests) {
+  formatRequestCount: function(requests) {
     if (requests) {
       return requests.length +
         (requests.length === 1 ? ' request' : ' requests')
@@ -56,4 +56,3 @@ const utils = {
 }
 
 export {utils}
-

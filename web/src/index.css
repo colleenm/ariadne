@@ -25,6 +25,11 @@ body, input, textarea {
   outline: none;
 }
 
+input {
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, .9)
+}
+
 ::placeholder {
   color: inherit;
   opacity: 0.8;
