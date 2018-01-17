@@ -61,7 +61,7 @@ type Article @model {
     abstract     : String!
     content      : String!
 
-    authors      : [Authorship!]! @relation(name      : "AuthorshipArticle")
+    authorships  : [Authorship!]! @relation(name      : "AuthorshipArticle")
     watchers     : [User!]!       @relation(name      : "UserArticlesWatched")
     comments     : [Comment!]!    @relation(name      : "ArticleComments")
     endorsements : [User!]!       @relation(name      : "UserArticlesEndorsed")
