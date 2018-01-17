@@ -17,33 +17,34 @@ import menuIcon        from '../assets/menu-icon.png'
 class Header extends React.Component {
 
   render() {
-    if (this.props.HeaderData.loading) {
+    if (this.props.HeaderUserData.loading) {
       return <Loading />
     }
 
-    const {user} = this.props.HeaderData
+    const user = this.props.HeaderUserData.User
 
     const mobileMenuStyles = {
-      'bmBurgerButton': {
-        'position': 'fixed',
-        'width': '24px',
-        'height': '24px',
-        'right': '16px',
-        'top': '12px',
+      bmBurgerButton: {
+        position: 'fixed',
+        width: '24px',
+        height: '24px',
+        right: '16px',
+        top: '12px',
       },
-      'bmCross': {
-        'backgroundColor': '#eeeeee',
+      bmCross: {
+        backgroundColor: '#eeeeee',
       },
-      'bmMenu': {
-        'backgroundColor': '#000',
-        'border': '1px solid #eee',
+      bmMenu: {
+        backgroundColor: '#000',
+        border: '1px solid #eee',
       },
-      'bmOverlay': {
-        'backgroundColor': 'rgba(0, 0, 0, 0.5)',
-        'left': '0',
+      bmOverlay: {
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        left: '0',
       },
     }
 
+    // TODO Hide site links/affordances when there is no logged in user
     return (
       <div className='bb b--white-70'>
         <div className='flex justify-between'>
@@ -80,6 +81,9 @@ class Header extends React.Component {
                 <img src={avatar} alt='user avatar' height='40px'/>
               </a>
             </div>
+            <div className='dn dib-l'>
+              <a onClick={this.logout}>Log out</a>
+            </div>
           </div>
 
           <div className='dn-l'>
@@ -92,6 +96,9 @@ class Header extends React.Component {
                     <img src={avatar} alt='user avatar' className='v-mid' height='40px'/>
                     <span className={styles.linkedTitle + ' ml3'}>{user.name}</span>
                   </a>
+                  <div className='mt2'>
+                    <a onClick={this.logout.bind(this)}>Log out</a>
+                  </div>
                 </div>
                 <div className='mv4'>
                   <a className={styles.linkedTitle + ' menu-item db mb3'}
@@ -119,11 +126,18 @@ class Header extends React.Component {
       </div>
     )
   }
+
+  // Log the user out of the site.
+  // TODO: this is an insecure hack, replace it with not a hack
+  logout = function() {
+    localStorage.clear()
+    document.location.assign('/')
+  }
 }
 
-const HeaderData = gql`
+const HeaderUserData = gql`
   query HeaderData ($id: ID!) {
-    user(id: $id) {
+    User(id: $id) {
       id
       expunged
       active
@@ -136,14 +150,14 @@ const HeaderData = gql`
   }
 `
 
-const HeaderWithGraphQL =  graphql(HeaderData, {
-  name: 'HeaderData',
+const HeaderWithGraphQL =  graphql(HeaderUserData, {
+  name: 'HeaderUserData',
   options: () => ({
     variables: {
-      id: process.env.REACT_APP_CURRENT_USER_ID,  // TODO get current user ID
+      // TODO get current user ID
+      id: 'cjccztli400ab0198qc86utqi',
     },
   }),
 })(Header)
 
 export default HeaderWithGraphQL
-

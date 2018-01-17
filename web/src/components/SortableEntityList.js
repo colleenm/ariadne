@@ -40,13 +40,13 @@ class SortableEntityList extends React.Component {
   // Handles a click on a (desktop) tab label and displays the corresponding
   // list of entities.
   onTabClick = function(typename) {
-    this.setState({'selected': typename})
+    this.setState({selected: typename})
   }
 
   // Handles selection of a (mobile) menu item and displays the corresponding
   // list of entities.
   onMenuSelect = function() {
-    this.setState({'selected': this.refs.dropdown.value})
+    this.setState({selected: this.refs.dropdown.value})
   }
 
   // Returns a label for the length of the given list.
@@ -92,4 +92,3 @@ class SortableEntityList extends React.Component {
 }
 
 export default SortableEntityList
-
