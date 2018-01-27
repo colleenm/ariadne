@@ -17,7 +17,7 @@ class ArticlePage extends React.Component {
       return <Loading />
     }
 
-    const {article} = this.props.ArticlePageArticle
+    const article = this.props.ArticlePageArticle.Article
 
     // TODO figure out when/how to show abstracts
     return (
@@ -60,12 +60,12 @@ class ArticlePage extends React.Component {
 
 const ArticlePageArticle = gql`
   query ArticlePageArticle($id: ID!) {
-    article(id: $id) {
+    Article(id: $id) {
       id
       expunged
       title
       abstract
-      body
+      content
     }
   }
 `

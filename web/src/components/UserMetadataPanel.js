@@ -14,7 +14,7 @@ class UserMetadataPanel extends React.Component {
       return <Loading />
     }
 
-    const user = this.props.UserMetadataUser.user
+    const user = this.props.UserMetadataUser.User
 
     return (
       <div className={styles.dullText}>
@@ -48,7 +48,7 @@ class UserMetadataPanel extends React.Component {
 
 const UserMetadataUser= gql`
   query UserMetadataUser($id: ID!) {
-    user(id: $id) {
+    User(id: $id) {
       id
       expunged
       active

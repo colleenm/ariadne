@@ -52,20 +52,21 @@ type Group @model {
 }
 
 type Article @model {
-    id           : ID!            @isUnique
-    createdAt    : DateTime!
-    updatedAt    : DateTime!
+    id              : ID!            @isUnique
+    createdAt       : DateTime!
+    updatedAt       : DateTime!
 
-    expunged     : Boolean!       @defaultValue(value : false)
-    title        : String!
-    abstract     : String!
-    content      : String!
+    expunged        : Boolean!       @defaultValue(value : false)
+    title           : String!
+    abstract        : String!
+    content         : String!
 
-    authorships  : [Authorship!]! @relation(name      : "AuthorshipArticle")
-    watchers     : [User!]!       @relation(name      : "UserArticlesWatched")
-    comments     : [Comment!]!    @relation(name      : "ArticleComments")
-    endorsements : [User!]!       @relation(name      : "UserArticlesEndorsed")
-    # TODO related articles
+    authorships     : [Authorship!]! @relation(name      : "AuthorshipArticle")
+    watchers        : [User!]!       @relation(name      : "UserArticlesWatched")
+    comments        : [Comment!]!    @relation(name      : "ArticleComments")
+    endorsements    : [User!]!       @relation(name      : "UserArticlesEndorsed")
+    # TODO Better related articles with submitters & votes
+    relatedArticles : [Article!]!    @relation(name      : "ArticleRelatedArticles")
 }
 
 type Authorship @model {

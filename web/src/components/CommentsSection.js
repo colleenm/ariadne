@@ -15,7 +15,7 @@ class CommentsSection extends React.Component {
     }
 
     // Replace 'article' with 'entity' below when we stop using fake data
-    const entity = this.props.CommentsSectionEntity.article
+    const entity = this.props.CommentsSectionEntity.Article
 
     return (
       <div>
@@ -55,7 +55,7 @@ class CommentsSection extends React.Component {
 //       query, not the article(id) query.
 const CommentsSectionEntity = gql`
   query CommentsSectionEntity($id: ID!) {
-    article(id: $id) {
+    Article(id: $id) {
       id
       expunged
       comments {

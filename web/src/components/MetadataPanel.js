@@ -15,7 +15,7 @@ class MetadataPanel extends React.Component {
     }
 
     // TODO Replace 'article' with 'entity' below to support interfaces
-    const entity = this.props.MetadataEntity.article
+    const entity = this.props.MetadataEntity.Article
 
     const dates = this.formatDateSection(entity)
     const authorships = this.formatAuthorships(entity)
@@ -99,12 +99,12 @@ class MetadataPanel extends React.Component {
 //       query, not the article(id) query.
 const MetadataEntity = gql`
   query MetadataEntity($id: ID!) {
-    article(id: $id) {
+    Article(id: $id) {
       id
       expunged
       createdAt
       updatedAt
-      authors {
+      authorships {
         id
         users {
           id

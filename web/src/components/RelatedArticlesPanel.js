@@ -13,7 +13,7 @@ class RelatedArticlesPanel extends React.Component {
       return <Loading />
     }
 
-    const {article} = this.props.RelatedArticles
+    const article = this.props.RelatedArticles.Article
 
     return (
       <div className={styles.borderedSection}>
@@ -22,7 +22,7 @@ class RelatedArticlesPanel extends React.Component {
           Related articles
         </div>
         <div className='mb3'>
-          {article.related
+          {article.related && article.related
               .map((item) => (
                 <ArticleListItem
                   articleId={item.id}
@@ -42,10 +42,10 @@ class RelatedArticlesPanel extends React.Component {
 
 const RelatedArticles = gql`
   query RelatedArticles($id: ID!) {
-    article(id: $id) {
+    Article(id: $id) {
       id
       expunged
-      related {
+      relatedArticles {
         id
       }
     }

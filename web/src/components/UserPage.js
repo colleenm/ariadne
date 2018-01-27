@@ -15,7 +15,7 @@ class UserPage extends React.Component {
       return <Loading/>
     }
 
-    const {user} = this.props.UserPageUser
+    const user = this.props.UserPageUser.User
 
     let entityListsByType = this.createEntityListsByType(user)
 
@@ -77,8 +77,8 @@ class UserPage extends React.Component {
 
 // TODO: bio, imageUrl
 const UserPageUser = gql`
-  query user($id: ID!) {
-    user(id: $id) {
+  query UserPageUser($id: ID!) {
+    User(id: $id) {
       id
       expunged
       active

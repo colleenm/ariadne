@@ -14,7 +14,7 @@ class ArticleListItem extends React.Component {
       return <Loading />
     }
 
-    const article = this.props.ArticleListItemArticle.article
+    const article = this.props.ArticleListItemArticle.Article
 
     const authors = this.formatAuthorships(article.authors)
 
@@ -51,33 +51,35 @@ class ArticleListItem extends React.Component {
   formatAuthorships = function(authorships) {
     // TODO don't show the group containing all users; if only individual users
     // are authors, show a list of usernames instead of group names.
-    return (
-      <div>
-        {authorships
-            .map((authorship) => (
-              <a href={paths.group + authorship.group.id}
-                key={authorship.group.id}
-                className='white'>
-                {authorship.group.name}
-              </a>
-            ))
-            .reduce((prev, curr) => [prev, ', ', curr])
-        }
-      </div>
-    )
+    if (authorships) {
+      return (
+        <div>
+          {authorships
+              .map((authorship) => (
+                <a href={paths.group + authorship.group.id}
+                  key={authorship.group.id}
+                  className='white'>
+                  {authorship.group.name}
+                </a>
+              ))
+              .reduce((prev, curr) => [prev, ', ', curr])
+          }
+        </div>
+      )
+    }
   }
 }
 
 const ArticleListItemArticle = gql`
   query ArticleListItemArticle($id: ID!) {
-    article(id: $id) {
+    Article(id: $id) {
       id
       expunged
       createdAt
       updatedAt
       title
       abstract
-      authors {
+      authorships {
        id
        group {
          id

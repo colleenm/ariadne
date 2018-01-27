@@ -14,7 +14,7 @@ class EndorsementsSection extends React.Component {
     }
 
     // Replace 'article' with 'entity' below when we stop using fake data
-    const entity = this.props.EndorsementsSectionEntity.article
+    const entity = this.props.EndorsementsSectionEntity.Article
 
     return (
       <div>
@@ -43,7 +43,7 @@ class EndorsementsSection extends React.Component {
 //       query, not the article(id) query.
 const EndorsementsSectionEntity = gql`
   query EndorsementsSectionEntity($id: ID!) {
-    article(id: $id) {
+    Article(id: $id) {
       id
       expunged
       endorsements {

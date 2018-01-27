@@ -52,7 +52,9 @@ class SortableEntityList extends React.Component {
   // Returns a label for the length of the given list.
   formatListLength = function(list) {
     return (list.length === 0 ? 'No' : list.length) + ' ' +
-      this.state.selected.toLowerCase()
+      // TODO more robust handling of singular/plural types
+      (list.length === 1 ? this.state.selected.toLowerCase().slice(0, -1) :
+        this.state.selected.toLowerCase())
   }
 
   // Returns a menu of entity types available to select from.
